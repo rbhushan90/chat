@@ -329,8 +329,11 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
   Firechat.prototype.setUser = function(userId, userName, callback) {
     var self = this;
 
+      console.log("FB.........setUser() !!");
+
     self._firebase.onAuth(function(authData) {
       if (authData) {
+        console.log("FB.........onAuth()");
         self._userId = userId.toString();
         self._userName = userName.toString();
         self._userRef = self._firebase.child('users').child(self._userId);

@@ -21,27 +21,41 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
                      $timeout, $ionicScrollDelegate, ChatFactory) {
 
   console.log("Chat ctrl");
+  uid = "facebook:10207221897619364";
+
+  Chat = this;
+
+  ChatFactory.getRoomId(Chat.promiseId,uid, setChatRoomId);
+
+  function setChatRoomId(roomId) {
+    console.log("setChatRoomId = " + roomId);
+    Chat.roomId = roomId;
+  }
 
   $scope.$on('modal.shown', function(event, modal) {
       console.log('Shown Modal ' + modal.modalId + ' is shown!');
       console.log("is for promiseId = "  + Chat.promiseId);
       if ( modal.modalId=="CHAT") {
-          Chat.enterRoom(Chat.promiseId);
+          ChatFactory.enterPromiseChat(Chat.promiseId, uid);
+
+        //ChatFactory.enterPromiseRoom(roomId);
 
           // 1. get last 20 messages..
           // 2. set 'message-add' listeners
-          ChatFactory.eventListener("room-enter", roomInviteReceivedCallback);
-          ChatFactory.cancelEventListener("room-enter");
-
       }
   });
 
+
+
   $scope.$on('modal.hidden', function(event, modal) {
        console.log('Hidden Modal ' + modal.modalId + ' is hidden!');
+       if ( modal.modalId=="CHAT") {
+         ChatFactory.closeMyChats();
+       }
   });
 
 
-  Chat = this;
+
 
   // passed in via Directive
   console.log("...Chat.promiseId = "  + Chat.promiseId);
@@ -51,8 +65,6 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
   Chat.data = {}; // holds the new message that User types
   Chat.data.message = "";
 
-  ChatFactory.eventListener("message-add", newMessageReceivedCallback);
-  ChatFactory.eventListener("room-invite", roomInviteReceivedCallback);
 
 
   // when new messags arrive, scroll to bottom
@@ -102,16 +114,13 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
     ChatFactory.inviteUser(userId, id);
   }
 
-  Chat.enterRoom = function(promiseId) {
-    console.log("Enter room for promise = " + promiseId);
 
-    Chat.roomId = ChatFactory.getActiveRoom();  //  should have map of promiseId / roomId ?
-    ChatFactory.enterRoom(Chat.roomId);
-  }
 
 
   Chat.sendMessage = function() {
     console.log("CHAT sendMessage......");
+
+
     /* do validation. I think this is a Meteor library / underscore
     if (_.isEmpty(Chat.data.message)) {
       return;
@@ -146,28 +155,6 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
   Chat.closeKeyboard = function() {
     console.log("Close Keyboard..");
     // cordova.plugins.Keyboard.close();
-  }
-
-  // CALLBACKS
-
-
-  function roomInviteReceivedCallback(invite) {
-    console.log("roomInviteReceived invite:");
-    console.log(invite);
-    $timeout(function() {
-      Chat.invitations.push(invite);
-    }, 300);
-  }
-
-
-  function newMessageReceivedCallback(roomId, message) {
-    console.log("new message received :");
-    console.log(message);
-    var userId = message.userId;
-    if (!this._user || !this._user.muted || !this._user.muted[userId]) {
-      //  this.showMessage(roomId, message);
-      Chat.list.push (message);
-    }
   }
 
 
