@@ -87,11 +87,6 @@ function openMyChats(authData) {
 
   console.log("INIT CHATS !!! .........");
 
-  eventListener("message-add", newMessageReceivedCallback);
-  eventListener("room-invite", roomInviteReceivedCallback);
-
-  logEventListeners();
-
   firechat.setUser(authData.uid, authData.facebook.displayName, function(user) {
     console.log("setUser() callback : USER....", user);
     //console.log(user);
@@ -102,6 +97,7 @@ function openMyChats(authData) {
 function closeMyChats() {
   cancelEventListener("message-add");
   cancelEventListener("room-invite");
+  logEventListeners();
 }
 
 
@@ -148,17 +144,4 @@ function roomInviteReceivedCallback(invite) {
   $timeout(function() {
     Chat.invitations.push(invite);
   }, 300);
-}
-
-
-function newMessageReceivedCallback(roomId, message) {
-  console.log("new message received :");
-  console.log(message);
-  var userId = message.userId;
-  if (!this._user || !this._user.muted || !this._user.muted[userId]) {
-
-    //Chat.list.push (message);
-    console.log(message);
-    console.log("NEW MESSAGE ---->" + message.message);
-  }
 }

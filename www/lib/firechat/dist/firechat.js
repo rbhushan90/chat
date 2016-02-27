@@ -272,7 +272,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
       this._invokeEventCallbacks('room-enter', room);
     },
     _onNewMessage: function(roomId, snapshot) {
-      console.log("on new message....");
+      console.log("FIRECHAT on new message....");
       var message = snapshot.val();
       message.id = snapshot.key();
       this._invokeEventCallbacks('message-add', roomId, message);

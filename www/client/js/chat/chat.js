@@ -21,6 +21,7 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
                      $timeout, $ionicScrollDelegate, ChatFactory) {
 
   console.log("Chat ctrl");
+
   uid = "facebook:10207221897619364";
 
   Chat = this;
@@ -38,6 +39,8 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
       if ( modal.modalId=="CHAT") {
           ChatFactory.enterPromiseChat(Chat.promiseId, uid);
 
+          ChatFactory.eventListener("message-add", newMessageReceivedCallback);
+
         //ChatFactory.enterPromiseRoom(roomId);
 
           // 1. get last 20 messages..
@@ -51,6 +54,13 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
        console.log('Hidden Modal ' + modal.modalId + ' is hidden!');
        if ( modal.modalId=="CHAT") {
          ChatFactory.closeMyChats();
+         ChatFactory.cancelEventListener("message-add");
+         ChatFactory.cancelEventListener("room-invite");
+       }
+       if (peekModal()) {
+         console.log("there's a modal is the stack, show it");
+         $rootScope.modal = popModal();
+         $rootScope.modal.show();
        }
   });
 
@@ -91,16 +101,6 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
 
   };
 
-  $scope.$on('modal.hidden', function() {
-    console.log("modal hidden......");
-
-    if (peekModal()) {
-      console.log("there's a modal is the stack, show it");
-      $rootScope.modal = popModal();
-      $rootScope.modal.show();
-    }
-
-  });
 
 
   var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
@@ -158,4 +158,15 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
   }
 
 
+  function newMessageReceivedCallback(roomId, message) {
+    console.log(">>> new message received :");
+  
+    var userId = message.userId;
+    if (!this._user || !this._user.muted || !this._user.muted[userId]) {
+
+      //Chat.list.push (message);
+      console.log(message);
+      console.log("NEW MESSAGE ---->" + message.message);
+    }
+  }
 }

@@ -39,6 +39,7 @@ function Login ($scope, $rootScope,$ionicModal, $timeout, FirebaseAuth, ChatFact
         console.log("Login Failed!", error);
       } else {
         console.log("Authenticated successfully with payload:", authData);
+        Login.authData = authData;
         ChatFactory.openMyChats(authData);
       }
     },
