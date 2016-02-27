@@ -1,0 +1,14 @@
+<ion-view title="Watching">
+
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="item in WatchList.data.items" href="#/tab/promise/{{item.id}}"
+            class="item-remove-animate item-icon-right item-text-wrap">
+        {{item.label}}
+        <ion-option-button class="button-calm">Chat</ion-option-button>
+        <i class="icon ion-chevron-right icon-accessory pull-right"></i>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

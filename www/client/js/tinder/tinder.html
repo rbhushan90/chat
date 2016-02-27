@@ -1,0 +1,70 @@
+<ion-view title="Notifications">
+
+  <ion-content class="has-header">
+
+    <div ng-if="Tinder.cards.active">
+      <td-cards>
+        <td-card ng-repeat="card in Tinder.cards.active" on-destroy="Tinder.cardDestroyed($index)"
+          on-swipe-left="Tinder.cardSwipedLeft($index)" on-swipe-right="Tinder.cardSwipedRight($index)"
+          class="do-flip" ng-class="{on:Tinder.onOff}"  ng-click="Tinder.flip(card)">
+
+          <div class="image">
+            <!--
+            <div class="no-text"><i class="icon ion-thumbsdown"></i></div>
+            <div class="yes-text"><i class="icon ion-thumbsup"></i></div>
+          -->
+          <div class="no-text">Decline</div>
+          <div class="yes-text">Accept</i></div>
+            <!-- *************************
+              Discard
+              - The card is removed from the deck and a fly away animation is triggered.
+              - onClickTransitionOut is found in ionic.tdcards.js
+              - Animation can be customized by changing defaults
+            ************************* -->
+
+            <img ng-src="{{ card.image }}" width="300px" height="300px">
+            <div class="content">
+              <h2 class="title">{{card.name}}</h2>
+              <p class="description">{{card.description}}</p>
+            </div>
+
+<!--
+<div class="list card">
+  <div class="item item-avatar">
+    <img ng-src="{{ card.image }}">
+    <h2>Marty McFly</h2>
+    <p>November 05, 1955</p>
+  </div>
+  <div class="item item-body">
+    <h2>{{card.description}}</h2>
+    <p>Angry protesters threw bricks and bottles at police, while police used batons and pepper spray and fired two warning shots into the air.</p>
+  </div>
+</div>
+-->
+
+          </div>
+        </td-card>
+        <!-- *************************
+          End Card
+          - 'drag' is set to false. The user cannot drag it.
+          - 'refreshCards()' reloads all cards that have NOT been discarded.
+        ************************* -->
+        <td-card id="end-card" drag="false">
+          <i class="icon ion-ios-refresh" ng-click="Tinder.refreshCards()"></i>
+        </td-card>
+      </td-cards>
+    </div>
+    <!--
+    <div class="td-title">
+      <div class="row">
+        <div class="col">Master:{{ Tinder.cards.master.length }}</div>
+        <div class="col">Cards:{{ Tinder.cards.active.length }}</div>
+        <div class="col">Discards:{{ Tinder.cards.discards.length }}</div>
+        <div class="col">Liked:{{ Tinder.cards.liked.length }}</div>
+        <div class="col">Disliked:{{ Tinder.cards.disliked.length }}</div>
+      </div>
+    </div>
+  -->
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,14 @@
+<ion-view view-title="Contacts">
+
+  <ion-content>
+    <ion-list>
+      <ion-checkbox ng-repeat="item in Contacts.list">{{item.name}}</ion-checkbox>
+    </ion-list>
+
+
+    <label class="item">
+      <button class="button button-block button-energized" ng-click="Contacts.showActions()">Actions</button>
+    </label>
+
+  </ion-content>
+</ion-view>

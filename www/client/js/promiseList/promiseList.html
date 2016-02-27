@@ -1,0 +1,17 @@
+<ion-view title="Promise List">
+  <ion-content class="has-header">
+
+    <ion-list>
+      <ion-item ng-repeat="item in PromiseList.data.items" href="#/tab/promise/{{item.id}}"
+            class="item-remove-animate item-icon-right item-text-wrap">
+        {{item.label}}
+        <ion-option-button class="button-positive">Share</ion-option-button>
+        <ion-option-button class="button-calm">Chat</ion-option-button>
+        <ion-option-button class="button-assertive">Revoke</ion-option-button>
+        <ion-option-button class="button-energized">Done</ion-option-button>
+        <i class="icon ion-chevron-right icon-accessory pull-right"></i>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

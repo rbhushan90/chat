@@ -1,0 +1,18 @@
+<ion-view title="Showcase">
+
+  <ion-content>
+
+    <ion-slide-box>
+        <ion-slide ng-repeat="item in Showcase.list">
+          <div class="box blue">
+            <div class="bar bar-header bar-light">
+                <h1 class="title">{{item.name}}</h1>
+            </div>
+            <img ng-src="{{item.image}}" style="width:90%;margin:auto;display:block" >
+          </div>
+        </ion-slide>
+   </ion-slide-box>
+
+
+  </ion-content>
+</ion-view>

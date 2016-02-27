@@ -1,0 +1,71 @@
+<ion-view title="Promise">
+  <ion-nav-title>The Promise</ion-nav-title>
+  <ion-content class="has-header">
+
+    <div class="list">
+
+      <form>
+        <label class="item item-input item-stacked-label">
+        <span class="input-label">Title</span>
+        <input type="text" placeholder="Describe your Promise">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Reward</span>
+        <input type="text" placeholder="What will the reward be?">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Forfeit</span>
+        <input type="text" placeholder="and the forfeit?">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Due</span>
+        <input type="date">
+      </label>
+      <label class="item item-input item-select item-stacked-label">
+        <span class="input-label">Area</span>
+        <select>
+          <option>Career</option>
+          <option selected>Health</option>
+          <option>Finances</option>
+          <option>Family</option>
+          <option>Friends</option>
+          <option>Leisure</option>
+          <option>Love</option>
+          <option>Misc</option>
+        </select>
+      </label>
+      <label class="item item-input item-select item-stacked-label">
+        <span class="input-label">Status</span>
+        <select>
+          <option selected>Pending</option>
+          <option>Revoked</option>
+          <option>In-Progress</option>
+          <option>Done</option>
+          <option>Not Done</option>
+          <option>Completed</option>
+        </select>
+      </label>
+  
+      <div class="padding input-label">
+        <button class="button button-clear button-positive icon-left ion-share"
+            ng-click="Promise.openShareModal()">Share</button>
+          &nbsp;
+        <button class="button button-clear button-positive icon-left ion-ios-chatboxes"
+            ng-click="Promise.openChatModal()">Chat</button>
+      </div>
+      <label class="item">
+
+        <img class="round-profile-photo" ng-src="img/max.png">
+        <img class="round-profile-photo" ng-src="img/ben.png">
+        <img class="round-profile-photo" ng-src="img/perry.png">
+      </label>
+      <label class="item">
+        <button class="button button-block button-energized" ng-click="Promise.showActions()">Actions</button>
+      </label>
+
+      </form>
+    </div>
+
+
+  </ion-content>
+</ion-view>

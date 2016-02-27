@@ -1,0 +1,23 @@
+<ion-modal-view>
+   <ion-header-bar>
+     <h1 class="title">Contacts</h1>
+     <div class="buttons">
+       <button class="button button-clear button-positive" ng-click="Contacts.hideModal()">Done</button>
+     </div>
+   </ion-header-bar>
+
+   <ion-view view-title="Contacts">
+
+     <ion-content>
+       <ion-list>
+         <ion-checkbox ng-repeat="item in Contacts.list">{{item.name}}</ion-checkbox>
+       </ion-list>
+
+       <label class="item">
+         <button class="button button-block button-energized" ng-click="Contacts.showActions()">Actions</button>
+       </label>
+
+     </ion-content>
+   </ion-view>
+
+ </ion-modal-view>

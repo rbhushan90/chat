@@ -1,0 +1,24 @@
+/* Empty. Add your own CSS if you like */
+
+.buffer {
+  top: 100px !important;
+}
+
+.do-flip.on-add{
+  -webkit-animation: flipInX 1s;
+  animation: flipInX 1s;
+}
+.do-flip.on-remove{
+  -webkit-animation: flipInX 1s;
+  animation: flipInX 1s;
+}
+
+.round-profile-photo {
+  border-radius: 50%;
+	width:40px;
+}
+
+
+.item.item-body.integritometer-mini {
+  height:200px;
+}

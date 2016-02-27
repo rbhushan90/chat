@@ -1,0 +1,17 @@
+<ion-side-menu side="right" is-enabled="{{SideMenu.isSideMenuEnabled}}" delegate-handle="sidemenuHandle">
+  <ion-header-bar class="bar-stable">
+    <h1 class="title">Settings</h1>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <!--
+      <ion-item menu-close ng-repeat="item in SideMenu.data.menuItems" href="{{item.url}}">
+        {{item.label}}
+      </ion-item>
+    -->
+      <ion-item menu-close ng-repeat="item in SideMenu.data.menuItems" ng-click="SideMenu.openModal(item.modal)">
+         {{item.label}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-side-menu>
