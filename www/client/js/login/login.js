@@ -40,7 +40,7 @@ function Login ($scope, $rootScope,$ionicModal, $timeout, FirebaseAuth, ChatFact
       } else {
         console.log("Authenticated successfully with payload:", authData);
         Login.authData = authData;
-        ChatFactory.openMyChats(authData);
+        ChatFactory.setup(authData);
       }
     },
       {  scope: "email,user_likes,user_location,user_friends" }
@@ -49,7 +49,7 @@ function Login ($scope, $rootScope,$ionicModal, $timeout, FirebaseAuth, ChatFact
 
   Login.logout = function() {
     console.log("logout....");
-    ChatFactory.closeMyChats();
+    ChatFactory.teardown();
 
     // to do : Need function() to clear out all SESSIONS on logout() !!
     // the rows in /users/{userId}/sessions is never deleted and  keeps  growing

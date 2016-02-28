@@ -11,20 +11,24 @@ angular.module('starter').directive('pxPromise', function () {
 });
 
 
-function Promise($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicActionSheet) {
-  console.log("promise controller");
+function Promise($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicActionSheet, ChatFactory) {
+  //console.log("promise controller");
 
   Promise = this;
 
   $scope.$on( "$ionicView.enter", function( scopes, states ) {
-    console.log("ionic view enter...PROMISE");
+    //console.log("ionic view enter...PROMISE");
 
     Promise.promiseId = $stateParams.promiseId;
 
-    broadcast($rootScope, 'rootScope:broadcast:sideMenu', 'promiseMenu');
+    //broadcast($rootScope, 'rootScope:broadcast:sideMenu', 'promiseMenu');
 
-    console.log("11 promise id = " + Promise.promiseId);
+    //console.log("promise id = " + Promise.promiseId);
   });
+
+  this.logEventListener = function() {
+    ChatFactory.logEventListeners();
+  }
 
   this.showActions = function() {
     showPromiseActionSheet($rootScope, $ionicActionSheet);

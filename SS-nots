@@ -1,0 +1,17 @@
+Event listeners
+---------------
+1. each time you add a listener for the same event, it is PUSHED into a stack.
+
+on "message-add" event
+----------------------
+all listeners for this event will get the same message.
+You need to filter by roomId to get the messages you want
+
+
+Order of Execution
+------------------
+1. Firechat.setUser(userId, userName, onComplete)
+
+2. add listeners
+
+3. Firechat.enterRoom(roomId)

@@ -1,23 +1,34 @@
 
 angular.module('starter').factory('ChatFactory',  ChatFactory);
 
-function ChatFactory($firebaseArray) {
+var initChat=false;
+var rooms = {};
+
+rooms['Promise-1'] = '-KBbpgmqu-CLC98vkD1I';
+rooms['Promise-2'] = '-KBbpolqKgHGlMFf94GS';
+rooms['Promise-3'] = '-KBbpv5jy0yOgswedsXS';
+
+function ChatFactory() {
   fbRef =  new Firebase(firebaseUrl);
   firechat = new Firechat(fbRef);
-  activeRoomId = null;
 
 	return {
-      openMyChats: openMyChats,
-      getRoomId: getRoomId,
-      closeMyChats : closeMyChats,
+      setup: setup,
+      teardown: teardown,
+      getPromiseRoomId: getPromiseRoomId,
+      setupNewMessageListener: setupNewMessageListener,
+      enterPromiseChat:enterPromiseChat,
+
       eventListener: eventListener,
       cancelEventListener: cancelEventListener,
+      logEventListeners: logEventListeners,
       createPrivateRoom : createPrivateRoom,
       inviteUser : inviteUser,
       enterPromiseChat : enterPromiseChat,
       sendMessage : sendMessage
 	};
 }
+
 
 // Be careful, function names can clash in the GLOBAL space.
 // eg. addEventListener() is a Firechat function.
@@ -56,14 +67,11 @@ function inviteUser(userId, roomId) {
 }
 
 
-function enterPromiseChat(promiseId,uid) {
+function enterPromiseChat(promiseId) {
   console.log("enterPromiseChat() promiseId= " + promiseId);
   // pass in a callback
-  getRoomId( Chat.promiseId,uid, enterChatRoom);
-}
 
-function enterChatRoom(roomId) {
-  console.log("enterChatRoom() ROOM ID CALLBACK id=" + roomId);
+  roomId = getPromiseRoomId(promiseId);
   firechat.enterRoom(roomId);
 }
 
@@ -73,33 +81,81 @@ function enterRoomCallback() {
 
 
 function sendMessage (roomId, text) {
-  console.log("sendMessage() text="+text + " roomId=" + roomId);
+  console.log("sendMessage()  roomId=" + roomId + " text="+text);
 
-  logEventListeners();
-  firechat.sendMessage(roomId, text, 'default', messageSentCallback);
+  firechat.sendMessage( roomId, text, 'default', messageSentCallback);
 }
 
-function messageSentCallback() {
-    console.log("messageSent callback");
+function messageSentCallback(e) {
+    console.log("MessageSent callback e=", e);
 }
 
-function openMyChats(authData) {
+function setup(authData) {
 
-  console.log("INIT CHATS !!! .........");
+    console.log("INIT CHATS !!! should be done ONCE only uid="+authData.uid);
 
-  firechat.setUser(authData.uid, authData.facebook.displayName, function(user) {
-    console.log("setUser() callback : USER....", user);
-    //console.log(user);
-  });
+    firechat.setUser(authData.uid, authData.facebook.displayName, function(user) {
+      console.log("setUser() callback : USER....", user);
+    });
+
+  //  eventListener("auth-required", firechatAuthRequiredCallback);
+  //  eventListener("message-add", newMessageReceivedCallback);
+  //  eventListener("room-invite", roomInviteReceivedCallback);
 
 }
 
-function closeMyChats() {
+function setupNewMessageListener(newMessageReceivedCallback) {
+  console.log("setupNewMessageListener()");
+  eventListener("message-add", newMessageReceivedCallback);
+}
+
+function teardown() {
+  initChat=false;
   cancelEventListener("message-add");
   cancelEventListener("room-invite");
   logEventListeners();
 }
 
+/* CRAP !
+function getRoomId(promiseId,  uid, callback) {
+  console.log("getRoomId promiseId=" + promiseId);
+
+
+  usersRoomsUrl = firebaseUrl + "/users/" + uid + "/rooms";
+  console.log("url= ", usersRoomsUrl);
+
+  roomName = getRoomName(promiseId);
+
+  ref = new Firebase(usersRoomsUrl);
+  ref.once("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        var key = childSnapshot.key();
+        var childData = childSnapshot.val();
+        console.log(key + " : ");
+        console.log("  Roomd Id:" + childData.id);
+        console.log("  Room Name:" + childData.name);
+
+
+        if ( roomName == childData.name) {
+          console.log("==> ROOM FOUND !!!!  " + childData.name);
+          callback( childData.id); //roomId
+        }
+      });
+  })
+
+}
+*/
+
+ function getPromiseRoomId(promiseId) {
+   roomName = getRoomName(promiseId);
+
+   console.log("rooms = " ,rooms);
+
+   roomId = rooms[roomName];
+
+   console.log("got Room Id = " + roomId);
+   return roomId;
+ }
 
 function getRoomName(promiseId) {
   roomName = "Promise-" + promiseId;
@@ -108,35 +164,14 @@ function getRoomName(promiseId) {
   return roomName;
 }
 
-function getRoomId(promiseId,  uid, callback) {
-  console.log("getRoomId promiseId=" + promiseId);
-
-
-  usersRoomsUrl = firebaseUrl + "/users/" + uid + "/rooms";
-  console.log("roomsRef=" + usersRoomsUrl);
-
-  roomName = getRoomName(promiseId);
-
-  ref = new Firebase(usersRoomsUrl);
-  ref.once("value", function(snapshot) {
-      console.log("got value?");
-      snapshot.forEach(function(childSnapshot) {
-        var key = childSnapshot.key();
-        var childData = childSnapshot.val();
-        console.log(key + " : ");
-        console.log("  Roomd Id:" + childData.id);
-        console.log("  Room Name:" + childData.name);
-
-        if ( roomName == childData.name) {
-          console.log("==> ROOM FOUND !!!!  " + childData.name);
-          callback( childData.id); //roomId
-        }
-      });
-  })
-}
-
 // CALLBACKS
 
+// it could happen that we are logged into Firebase, but not into Firechat (via setUser() )
+function firechatAuthRequiredCallback() {
+  m = "============ LOST connection to firechat. Please re-login======";
+  console.log(m);
+  alert(m);
+}
 
 function roomInviteReceivedCallback(invite) {
   console.log("roomInviteReceived invite:");

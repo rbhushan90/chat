@@ -2,12 +2,6 @@ var firebaseUrl = "https://dannybchat.firebaseio.com";
 
 angular.module('starter').factory("FirebaseAuth", FirebaseAuth);
 
-/*
-function Auth($firebaseAuth) {
-  var usersRef = new Firebase(firebaseUrl);
-  return $firebaseAuth(usersRef);
-}
-*/
 
 function FirebaseAuth() {
    authRef = new Firebase(firebaseUrl);
@@ -15,6 +9,18 @@ function FirebaseAuth() {
 	return {
       getAuth: function() {
         return authRef;
+      },
+
+      isAuthenticated : function() {
+        authData = authRef.getAuth();
+        if ( authData !=null ) {
+          console.log("USER is logged in....carry on user=" + authData.uid);
+          return true;
+        }
+        else {
+          console.log("USER NOT logged in....pls login");
+          return false;
+        }
       }
 	};
 }

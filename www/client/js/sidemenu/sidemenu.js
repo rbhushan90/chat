@@ -1,5 +1,5 @@
 angular.module('starter').directive('pxSideMenu', function () {
-  console.log("sidemenu directive");
+  //console.log("sidemenu directive");
   return {
       restrict: 'E',
       templateUrl: function() {

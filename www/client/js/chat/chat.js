@@ -1,6 +1,6 @@
 // open in Modal mode
 angular.module('starter').directive('pxChatModal', function () {
-  console.log("chatModal directive");
+  //console.log("chatModal directive");
   return {
     restrict: 'E',
     scope: {},
@@ -15,47 +15,41 @@ angular.module('starter').directive('pxChatModal', function () {
   }
 });
 
-
+var initChat=false;
 
 function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $state,
-                     $timeout, $ionicScrollDelegate, ChatFactory) {
+                     $timeout, $ionicScrollDelegate, ChatFactory, FirebaseAuth) {
 
-  console.log("Chat ctrl");
-
-  uid = "facebook:10207221897619364";
+  // console.log("Chat ctrl");
 
   Chat = this;
 
-  ChatFactory.getRoomId(Chat.promiseId,uid, setChatRoomId);
-
-  function setChatRoomId(roomId) {
-    console.log("setChatRoomId = " + roomId);
-    Chat.roomId = roomId;
+  if ( FirebaseAuth.isAuthenticated() && initChat==false) {
+    ChatFactory.setupNewMessageListener(newMessageReceivedCallback);
+    initChat = true;
   }
 
+
   $scope.$on('modal.shown', function(event, modal) {
-      console.log('Shown Modal ' + modal.modalId + ' is shown!');
-      console.log("is for promiseId = "  + Chat.promiseId);
+      console.log('Shown Modal ' + modal.modalId + ' is shown! promiseId = '  + Chat.promiseId);
+
+      if ( FirebaseAuth.isAuthenticated() ) {
+        console.log("is Authenticated, ok...");
+        Chat.warn = "";
+      } else {
+        Chat.warn = "You are not Authenticated, please log in";
+      }
       if ( modal.modalId=="CHAT") {
-          ChatFactory.enterPromiseChat(Chat.promiseId, uid);
-
-          ChatFactory.eventListener("message-add", newMessageReceivedCallback);
-
-        //ChatFactory.enterPromiseRoom(roomId);
-
-          // 1. get last 20 messages..
-          // 2. set 'message-add' listeners
+          ChatFactory.enterPromiseChat(Chat.promiseId);
+          Chat.roomId = ChatFactory.getPromiseRoomId(Chat.promiseId);
       }
   });
-
 
 
   $scope.$on('modal.hidden', function(event, modal) {
        console.log('Hidden Modal ' + modal.modalId + ' is hidden!');
        if ( modal.modalId=="CHAT") {
-         ChatFactory.closeMyChats();
-         ChatFactory.cancelEventListener("message-add");
-         ChatFactory.cancelEventListener("room-invite");
+         // chat modal closed
        }
        if (peekModal()) {
          console.log("there's a modal is the stack, show it");
@@ -64,7 +58,9 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
        }
   });
 
-
+  Chat.logEventListener = function() {
+    ChatFactory.logEventListeners();
+  }
 
 
   // passed in via Directive
@@ -127,7 +123,6 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
     }
     */
 
-    console.log(">> roomId=" + Chat.roomId);
     ChatFactory.sendMessage(Chat.roomId, Chat.data.message);
 
     $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(true);
@@ -158,15 +153,26 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
   }
 
 
-  function newMessageReceivedCallback(roomId, message) {
-    console.log(">>> new message received :");
-  
-    var userId = message.userId;
-    if (!this._user || !this._user.muted || !this._user.muted[userId]) {
 
-      //Chat.list.push (message);
-      console.log(message);
-      console.log("NEW MESSAGE ---->" + message.message);
-    }
+  function newMessageReceivedCallback(roomId, message) {
+     usersCurrentRoom =   Chat.roomId;
+      console.log("[NEW MESSAGE] User's current room:" + usersCurrentRoom + "  message for room:" + roomId);
+
+      if ( usersCurrentRoom != roomId) {
+        console.log("NOT for this room, new message,  roomId=" + roomId + " msg=",  message);
+        return;
+      }
+
+      var userId = message.userId;
+      if (!this._user || !this._user.muted || !this._user.muted[userId]) {
+        if ( usersCurrentRoom == roomId)
+        $timeout(function() {
+          Chat.list.push (message);
+        }, 300);
+
+        console.log("NEW MESSAGE --> roomId=" + roomId + " msg=",  message);
+      }
   }
+
+
 }

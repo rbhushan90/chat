@@ -16,7 +16,7 @@ function PromiseList($scope, $rootScope) {
     items: []
   };
 
-  for (var i = 0; i < 5; i++) {
+  for (var i = 1; i <4; i++) {
     this.data.items.push({
       id: i,
       label: "Your Promise Item " + i

@@ -15,12 +15,10 @@
    <!-- collection-repeat only renders the visible elements. -->
 
    <ion-content class="has-header chat"  delegate-handle="chatScroll">
-     <ion-list>
-       <ion-item ng-repeat="room in Chat.roomList" ng-click="Chat.enterRoom(room.id,room.name)">
-         {{room.id}}  {{room.name}} : {{room.type}}
-         <ion-option-button ng-click="Chat.inviteUser(room.id, room.name)" class="button-positive">Invite</ion-option-button>
-       </ion-item>
-     </ion-list>
+     <div>{{Chat.warn}}</div>
+     <button class="button button-clear button-positive icon-left ion-ios-chatboxes"
+         ng-click="Chat.logEventListener()">Log Event Listener</button>
+
      <ion-list>
        <ion-item ng-repeat="invite in Chat.invitations">
          {{invite.toRoomName}}  {{invite.fromUserName}}

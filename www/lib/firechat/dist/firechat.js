@@ -190,6 +190,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
       // Generate a unique session id for the visit.
       var sessionRef = this._userRef.child('sessions').push();
       this._sessionId = sessionRef.key();
+      console.log("------------> SESSION ID=" + this._sessionId);
       this._queuePresenceOperation(sessionRef, true, null);
 
       // Register our username in the public user listing.
@@ -264,6 +265,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
 
     // Event to monitor current auth + user state.
     _onAuthRequired: function() {
+      console.log("FB .....Firechat thinks you are not authenticated !!");
       this._invokeEventCallbacks('auth-required');
     },
 
@@ -395,11 +397,18 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
 
   // Enter a chat room.
   Firechat.prototype.enterRoom = function(roomId) {
+    console.log("FB --------enterRoom() !!! roomId = " + roomId);
+
+
     var self = this;
     self.getRoom(roomId, function(room) {
       var roomName = room.name;
 
       if (!roomId || !roomName) return;
+
+  console.log("my rooms=", self._rooms);
+  console.log("my userId=", self._userId);
+  console.log("sesionId=",self._sessionId);
 
       // Skip if we're already in this room.
       if (self._rooms[roomId]) {
@@ -415,6 +424,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
           name: roomName,
           active: true
         });
+
 
         // Set presence bit for the room and queue it for removal on disconnect.
         var presenceRef = self._firebase.child('room-users').child(roomId).child(self._userId).child(self._sessionId);
