@@ -7,6 +7,11 @@ on "message-add" event
 all listeners for this event will get the same message.
 You need to filter by roomId to get the messages you want
 
+Quirks
+------
+Once you are invited, you are authorised to use the Room.
+Accept/Decline does not affect permission.
+To do : if User decline, remove user from  /room-metadata/{room}/authorisedUsers/{user}
 
 Order of Execution
 ------------------

@@ -4,9 +4,10 @@ angular.module('starter').factory('ChatFactory',  ChatFactory);
 var initChat=false;
 var rooms = {};
 
-rooms['Promise-1'] = '-KBg0XcFByqC9BuL3NhC';
-rooms['Promise-2'] = '-KBg2_sAuLReOIKa6Yrq';
-rooms['Promise-3'] = '-KBg3Bzs9mnwiyNmyoOO';
+// hardcoded - temp only.  Meteor should store the Room keys
+rooms['Promise-1'] = '-KBgIq_1y6daTEd1PxQN';
+rooms['Promise-2'] = '-KBgOK-jAvho34eCSpPJ';
+rooms['Promise-3'] = '-KBgOibQP7434wMVkEPE';
 
 function ChatFactory() {
   fbRef =  new Firebase(firebaseUrl);
@@ -27,7 +28,7 @@ function ChatFactory() {
       enterPromiseChat : enterPromiseChat,
       inviteUserToChat : inviteUserToChat,
       acceptInviteToChat : acceptInviteToChat,
-      rejectInviteToChat : rejectInviteToChat,
+      declineInviteToChat: declineInviteToChat,
       sendMessage : sendMessage
 	};
 }
@@ -53,6 +54,8 @@ function logEventListeners() {
 }
 
 function createPrivateRoom(promiseId) {
+  // CHECK THAT USER IS AUTHEN !!
+
   roomName = getRoomName(promiseId);
   console.log("PromiseId=" + promiseId + " room name = " + roomName);
   firechat.createRoom(roomName, "private", createPrivateRoomCallback);
@@ -115,21 +118,23 @@ function setupNewMessageListener(newMessageReceivedCallback) {
 function setupRoomInviteListener(roomInviteCallback, roomInviteResponseCallback) {
   console.log("setupRoomInviteListener()");
   eventListener("room-invite", roomInviteCallback);
-  eventListener("room-invite-response", roomInviteResponseCallback);
+  eventListener("room-invite-response", roomInviteResponseCallback);  // Strange! CB yourself only !! not the person who invited you.
 
 }
 
-function acceptInviteToChat(invite) {
+function acceptInviteToChat(invite, cb) {
   console.log("acceptInviteToChat", invite);
-  firechat.acceptInvite(invite.id, acceptCallback);
+  firechat.acceptInvite(invite.id, cb);
 }
 
-function acceptCallback(c) {
-  console.log("ACCEPTED ...c: ", c);
-}
 
-function rejectInviteToChat(invite) {
+function declineInviteToChat(invite, cb) {
   console.log("rejectInviteToChat", invite);
+  firechat.declineInvite(invite.id, cb);
+}
+
+function declineInviteCallback(c) {
+  console.log("DECLINED ...c: ", c);
 }
 
 function teardown() {

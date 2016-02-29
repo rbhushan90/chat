@@ -105,11 +105,8 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
   ////////////
 
 
-
-
   Chat.sendMessage = function() {
     console.log("CHAT sendMessage......");
-
 
     /* do validation. I think this is a Meteor library / underscore
     if (_.isEmpty(Chat.data.message)) {
@@ -148,11 +145,12 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
 
   Chat.acceptInvite = function(invite) {
     console.log("acceptInvite", invite);
-    ChatFactory.acceptInviteToChat(invite);
+    ChatFactory.acceptInviteToChat(invite, roomInviteResponseCallback);
   }
 
-  Chat.rejectInvite = function(invite) {
-    console.log("rejectInvite", invite);
+  Chat.declineInvite = function(invite) {
+    console.log("declineInvite", invite);
+    ChatFactory.declineInviteToChat(invite, roomInviteResponseCallback);
   }
 
   function newMessageReceivedCallback(roomId, message) {
@@ -185,7 +183,6 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
 
   function roomInviteResponseCallback(resp) {
     console.log("INVITE response !! roomInviteResponseCallback : ", resp);
-    console.log("fromUserName : " + resp.fromUserName + " invite status=" + resp.status);
   }
 
 
