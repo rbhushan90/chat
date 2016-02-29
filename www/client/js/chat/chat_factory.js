@@ -4,9 +4,9 @@ angular.module('starter').factory('ChatFactory',  ChatFactory);
 var initChat=false;
 var rooms = {};
 
-rooms['Promise-1'] = '-KBbpgmqu-CLC98vkD1I';
-rooms['Promise-2'] = '-KBbpolqKgHGlMFf94GS';
-rooms['Promise-3'] = '-KBbpv5jy0yOgswedsXS';
+rooms['Promise-1'] = '-KBg0XcFByqC9BuL3NhC';
+rooms['Promise-2'] = '-KBg2_sAuLReOIKa6Yrq';
+rooms['Promise-3'] = '-KBg3Bzs9mnwiyNmyoOO';
 
 function ChatFactory() {
   fbRef =  new Firebase(firebaseUrl);
@@ -17,14 +17,17 @@ function ChatFactory() {
       teardown: teardown,
       getPromiseRoomId: getPromiseRoomId,
       setupNewMessageListener: setupNewMessageListener,
+      setupRoomInviteListener: setupRoomInviteListener,
       enterPromiseChat:enterPromiseChat,
 
       eventListener: eventListener,
       cancelEventListener: cancelEventListener,
       logEventListeners: logEventListeners,
       createPrivateRoom : createPrivateRoom,
-      inviteUser : inviteUser,
       enterPromiseChat : enterPromiseChat,
+      inviteUserToChat : inviteUserToChat,
+      acceptInviteToChat : acceptInviteToChat,
+      rejectInviteToChat : rejectInviteToChat,
       sendMessage : sendMessage
 	};
 }
@@ -52,7 +55,7 @@ function logEventListeners() {
 function createPrivateRoom(promiseId) {
   roomName = getRoomName(promiseId);
   console.log("PromiseId=" + promiseId + " room name = " + roomName);
-  firechat.createRoom(roomName, "public", createPrivateRoomCallback);
+  firechat.createRoom(roomName, "private", createPrivateRoomCallback);
   logEventListeners();
 }
 
@@ -61,8 +64,9 @@ function createPrivateRoomCallback(roomId) {
 }
 
 
-function inviteUser(userId, roomId) {
-  console.log("inviteUser() userId=" + userId + " roomId= " + roomId);
+function inviteUserToChat(userId, promiseId) {
+  console.log("inviteUserToChat() userId=" + userId + " promiseId= " + promiseId);
+  roomId = getPromiseRoomId(promiseId);
   firechat.inviteUser(userId, roomId);
 }
 
@@ -91,22 +95,41 @@ function messageSentCallback(e) {
 }
 
 function setup(authData) {
-
     console.log("INIT CHATS !!! should be done ONCE only uid="+authData.uid);
 
     firechat.setUser(authData.uid, authData.facebook.displayName, function(user) {
       console.log("setUser() callback : USER....", user);
     });
 
-  //  eventListener("auth-required", firechatAuthRequiredCallback);
+   eventListener("auth-required", firechatAuthRequiredCallback);
   //  eventListener("message-add", newMessageReceivedCallback);
   //  eventListener("room-invite", roomInviteReceivedCallback);
-
 }
 
 function setupNewMessageListener(newMessageReceivedCallback) {
   console.log("setupNewMessageListener()");
   eventListener("message-add", newMessageReceivedCallback);
+}
+
+
+function setupRoomInviteListener(roomInviteCallback, roomInviteResponseCallback) {
+  console.log("setupRoomInviteListener()");
+  eventListener("room-invite", roomInviteCallback);
+  eventListener("room-invite-response", roomInviteResponseCallback);
+
+}
+
+function acceptInviteToChat(invite) {
+  console.log("acceptInviteToChat", invite);
+  firechat.acceptInvite(invite.id, acceptCallback);
+}
+
+function acceptCallback(c) {
+  console.log("ACCEPTED ...c: ", c);
+}
+
+function rejectInviteToChat(invite) {
+  console.log("rejectInviteToChat", invite);
 }
 
 function teardown() {
@@ -171,12 +194,4 @@ function firechatAuthRequiredCallback() {
   m = "============ LOST connection to firechat. Please re-login======";
   console.log(m);
   alert(m);
-}
-
-function roomInviteReceivedCallback(invite) {
-  console.log("roomInviteReceived invite:");
-  console.log(invite);
-  $timeout(function() {
-    Chat.invitations.push(invite);
-  }, 300);
 }

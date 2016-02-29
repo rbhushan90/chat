@@ -306,6 +306,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
 
       // Skip invites we've already responded to.
       if (invite.status) {
+        console.log("skip if  responded to");
         return;
       }
 

@@ -26,6 +26,7 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
 
   if ( FirebaseAuth.isAuthenticated() && initChat==false) {
     ChatFactory.setupNewMessageListener(newMessageReceivedCallback);
+    ChatFactory.setupRoomInviteListener(roomInviteCallback, roomInviteResponseCallback);
     initChat = true;
   }
 
@@ -104,13 +105,6 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
   ////////////
 
 
-  Chat.inviteUser = function(roomId, roomName) {
-    console.log("inviteUser() : " + roomName + " id = " + roomId);
-    userId = "facebook:102211453505444";
-    ChatFactory.inviteUser(userId, id);
-  }
-
-
 
 
   Chat.sendMessage = function() {
@@ -152,7 +146,14 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
     // cordova.plugins.Keyboard.close();
   }
 
+  Chat.acceptInvite = function(invite) {
+    console.log("acceptInvite", invite);
+    ChatFactory.acceptInviteToChat(invite);
+  }
 
+  Chat.rejectInvite = function(invite) {
+    console.log("rejectInvite", invite);
+  }
 
   function newMessageReceivedCallback(roomId, message) {
      usersCurrentRoom =   Chat.roomId;
@@ -172,6 +173,19 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
 
         console.log("NEW MESSAGE --> roomId=" + roomId + " msg=",  message);
       }
+  }
+
+
+  function roomInviteCallback(invite) {
+    console.log("NEW INVITE !! roomInviteCallback : ", invite);
+    $timeout(function() {
+      Chat.invitations.push(invite);
+    }, 300);
+  }
+
+  function roomInviteResponseCallback(resp) {
+    console.log("INVITE response !! roomInviteResponseCallback : ", resp);
+    console.log("fromUserName : " + resp.fromUserName + " invite status=" + resp.status);
   }
 
 

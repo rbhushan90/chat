@@ -20,19 +20,23 @@ function Share($scope, $rootScope, $ionicModal, ChatFactory) {
   console.log("Share ctrl");
   var contacts = [
     {
-      name: 'Adam Jones',
+      uid: 'facebook:102211453505444',
+      name: 'Ann Ann Ann',
       image: 'img/adam.jpg'
     },
     {
-      name: 'Ben Smith',
+      uid: 'facebook:10207221897619364',
+      name: 'SS Smith',
       image: 'img/ben.png'
     },
     {
-      name: 'Max McMillian',
+      uid: 'facebook:141031766284923',
+      name: 'Bob Bob Bob',
       image: 'img/max.png'
     },
     {
-      name: 'Mike Sanders',
+      uid : 'facebook:139737919748901',
+      name: 'Cat Cat Cat',
       image: 'img/mike.png'
     }
   ];
@@ -52,7 +56,8 @@ function Share($scope, $rootScope, $ionicModal, ChatFactory) {
 
   // send Invite for Chatroom. If Room does not exist, create one first
   Share.invite = function(item)  {
-    console.log("invite " +item.name);
+    console.log("invite " +item.name + " uid=" + item.uid);
+    ChatFactory.inviteUserToChat(item.uid, Share.promiseId);
   }
 
 }

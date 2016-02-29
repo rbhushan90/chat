@@ -20,10 +20,11 @@
          ng-click="Chat.logEventListener()">Log Event Listener</button>
 
      <ion-list>
+       <ion-item>Invites</ion-item>
        <ion-item ng-repeat="invite in Chat.invitations">
          {{invite.toRoomName}}  {{invite.fromUserName}}
-         <ion-option-button ng-click="Chat.inviteUser(room.id, room.name)" class="button-positive">Accept</ion-option-button>
-         <ion-option-button ng-click="Chat.inviteUser(room.id, room.name)" class="button-positive">Accept</ion-option-button>
+         <ion-option-button ng-click="Chat.acceptInvite(invite)" class="button-positive">Accept</ion-option-button>
+         <ion-option-button ng-click="Chat.declineInvite(invite)" class="button-positive">Decline</ion-option-button>
        </ion-item>
      </ion-list>
 
