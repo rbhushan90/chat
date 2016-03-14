@@ -1,0 +1,41 @@
+
+
+Date: Tue, 8 Mar 2016 21:41:08 +0000
+Subject: Feedback on the prototype so far
+From: dannybloomfield2@gmail.com
+To: ssleong@hotmail.com
+
+Dear SeeSee here is my initial Feedback on the app prototype (I haven't read it, please forgive if anything comes across as dry or critical in any way… its just words!). There is a mix of feedback, thoughts and explanation below.
+
+- In the prototype, I can't seem to go back once I click on "Your promises" (I prefer "My Promises"), so have to close the demo to get back to the original screen - can you add a back button? For example if I go to the "Promise list" I seem to get stuck there. (I have figured out a way to go back by clicking on a promise and then on share and then on a name and then done)
+yes, defo. The Prototype is only meant to draw out the 'big pieces'. The finer details will be in the App.
+
+- SeeSee, I can see that I really DO like the designs I put out. So I am going to look at functionality, but actually I think it is also going to be important for us to have this function in line with the designs too…. can we make that work? We may have to do that bit in cahoots with Peter's designer, Mark.
+Great ! You got it - the User Interface Design is a piece of work that is distinct from the Functionality (that we are discussing  now).
+The two should weave in together nicely though. I haven't priced in UI costs into my quote(ref: Spreadsheet) so we won't need to contra costs on that front.  Peter and Mark will understand this next bit - the Prototype is coded in Javascript/HTML/CSS, we will need Peter to work from this baseline. ie. I pass him the Prototype and he styles it into the look you want. In other words, once we have agreed the big pieces and the navigation, Mark will jazz the Prototype up with the colour, look , etc as per his design(the Coconut Tree screens). He will also need to test it on the various Emulators (Apple/Android) to ensure the screens look as intended on the various Phones. I can't remember if Mark can do the Screens in HTML/CSS(ie. code) or if he is a pure Graphics Designer(ie. produce designs rather than code). So, question for Peter - can Mark work with/edit HTML/CSS  ?
+I know three front-end guys who may be able to work with us, they are Contractors.
+
+- I do not think that we require a separate section for "Requests". If there were a section called Requests, then technically that would include requests that you have made of others, and requests that others have made of you, and would not include promises that you have shared with others that have not been accepted, declined or countered to be watched, or promises shared with you that you have not yet accepted or declined or countered
+Correct. By 'Requests', i meant the requests that you have made of others. ie. "Peter, please raise $100 for Charity".
+i have been thinking of 'Promises' as being synonymous with 'My Promises'
+
+- unless we consider those also to be requests of some sort, as in we request that someone watch My Promise.
+I think in the past, you have called this  'Share'. ie. when we request that someone watch My Promise, you 'share' your promise with the other person. I called it 'Tag' in the first prototype.
+
+If there were to be a 3rd grouping of promises beyond 'My promises' and 'Promises Watching', then I think the logical group would be 'Pending' (pending interaction to accept decline or counter). However I think that these Promises/Requests which are pending acceptance/being declined/being countered, can all just fit in under My Promises or Promises Watching, or should be simply accessible from those sections/modules of the app.
+
+- Promises exist as "My promises", which have either been shared with and accepted by others to be watched (or pending the acceptance), or requested of you and accepted as your promise (or pending your acceptance), and "Promises Watching" (which you have either requested of others and had accepted (or they are pending acceptance), or others have shared with you as their promise and you have accepted to watch (or your acceptance is pending).
+Great, this answers the question of where to place 'Requests'. - we will tuck it under 'My Promises'. Anything that originates from you(either a Promise or a Request' will be placed under "My Promises".
+
+- In the designs that I have put together so far, there is a draft area called "Create Promises" which I see as a useful area to store ideas before they are shaped into Promises or Requests. This is not in the prototype.
+Noted, I haven't put in a button or area to Create new Promises.
+
+
+- The Settings Menu - yep we do require an area for logging out (If logged in that shuld say "Log out" rather than "Login", right? If not logged in then there would be a login screen overlaying the splash screen).
+yes, that is correct.
+
+ And I also think thats a great idea to have the "Areas" in the Settings section. I suppose its also useful to have "Contacts" there … though if that is the case then I suppose what you'd want to be able to do is create groups as well, AND from that area, create promises e.g. click on them and select "Create promise" or "Make Request" and then it would become a promise or request draft promise in the making…
+
+Currently where contacts come in, is when seeking to share or request a promise. Then you have to choose whom to share with or request of, and in that interaction it is displayed (wireframes slide 5.1) whether someone is a contact, or whether they are not (in that case it says "Invite to Integritometer" under their name and you can send an invite then.) AND I think its also great to be able to send an invite separately in a contacts area, or originate a promise from a contacts area. Sort of like a Promise version of whatsapp. Thanks!
+At the mo, the 'Contacts' section is for us to import contacts from the Phone's address book. Hence, the 'Send Invite' option.
+I can see how useful it is to use the Contacts list as a starting point for Creating Promises/Making Requests. We will then have two starting points - (1) use the draft Create Promises , then 'Tag' your friends (2) use the Contacts list, select your friends then create Promise.

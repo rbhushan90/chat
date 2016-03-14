@@ -407,9 +407,9 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
 
       if (!roomId || !roomName) return;
 
-  console.log("my rooms=", self._rooms);
-  console.log("my userId=", self._userId);
-  console.log("sesionId=",self._sessionId);
+  //console.log("my rooms=", self._rooms);
+  //console.log("my userId=", self._userId);
+  //console.log("sessionId=",self._sessionId);
 
       // Skip if we're already in this room.
       if (self._rooms[roomId]) {
@@ -479,7 +479,44 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
   };
 
   Firechat.prototype.sendMessage = function(roomId, messageContent, messageType, cb) {
-    console.log("in FB ...sendMessage....");
+    console.log("in FB ...sendMessage.... roomId=", roomId);
+
+    var self = this;
+    if (!self._user) {
+      self._onAuthRequired();
+      if (cb) {
+        cb(new Error('Not authenticated or user not set!'));
+      }
+      return;
+    }
+      // increment the counter
+      var roomRef = self._roomRef.child(roomId);
+      roomRef.child('counter').transaction(function(currentValue) {
+          return (currentValue||0) + 1;
+      }, function(err, committed, ss) {
+          if( err ) {
+             console.log("Countr error=", err);
+          }
+          else if( committed ) {
+             // if counter update succeeds, then create record
+             console.log("Committed ! seqId = " + ss.val());
+                 message = {
+                   seqId : ss.val(),
+                   userId: self._userId,
+                   name: self._userName,
+                   timestamp: Firebase.ServerValue.TIMESTAMP,
+                   message: messageContent,
+                   type: messageType || 'default'
+                 };
+
+             var newMessageRef = self._messageRef.child(roomId).push();
+             newMessageRef.setWithPriority(message, Firebase.ServerValue.TIMESTAMP, cb);
+          }
+      });
+
+
+
+    /*
     var self = this,
         message = {
           userId: self._userId,
@@ -500,6 +537,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
 
     newMessageRef = self._messageRef.child(roomId).push();
     newMessageRef.setWithPriority(message, Firebase.ServerValue.TIMESTAMP, cb);
+    */
   };
 
   Firechat.prototype.deleteMessage = function(roomId, messageId, cb) {

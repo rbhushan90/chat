@@ -5,7 +5,7 @@ var initChat=false;
 var rooms = {};
 
 // hardcoded - temp only.  Meteor should store the Room keys
-rooms['Promise-1'] = '-KCnAvchlvXeSa369X7A';
+rooms['Promise-1'] = '-KChbxejczJXyKe6pbux';
 rooms['Promise-2'] = '-KChc4XW1mqQmZkhxp_8';
 rooms['Promise-3'] = '-KChc9phm0NpDt82_2gV';
 
@@ -147,6 +147,8 @@ function teardown() {
 
  function getPromiseRoomId(promiseId) {
    roomName = getRoomName(promiseId);
+
+   console.log("rooms = " ,rooms);
 
    roomId = rooms[roomName];
 

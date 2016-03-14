@@ -1,3 +1,8 @@
+To do
+=====
+check that User is authenticated first before creating Room else null owner
+
+
 Event listeners
 ---------------
 1. each time you add a listener for the same event, it is PUSHED into a stack.
@@ -20,3 +25,11 @@ Order of Execution
 2. add listeners
 
 3. Firechat.enterRoom(roomId)
+
+Chat ( 13 March )
+-----------------
+(1) firechat.js --- customised firechat.js. Added Sequence Id to (1) room-metadata and (2) room-messages
+(2) use angular-ui-scroll for infinite scrolling.
+  $ bower install angular-ui-scroll
+
+(3) How to load a list from a  starting point ---> Chat.adapter.reload(startIndex);

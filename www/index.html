@@ -30,10 +30,21 @@
     <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
     <script src="lib/ionic-tinder-cards-2/ionic.tdcards2.js"></script>
     <script src="lib/collide/collide.js"></script>
+
     <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
-    <script src="lib/jquery/dist/jquery.min.js"></script> <!-- needed by Firechat. Meteor will have Jquery so we won't need this incl -->
+    <script src="https://cdn.firebase.com/libs/firebase-util/0.2.5/firebase-util.min.js"></script>
+    <script src="lib/angular-ui-scroll/dist/ui-scroll.js"></script>
+    <script src="lib/angular-ui-scroll/dist/ui-scroll-jqlite.js"></script>
     <script src="lib/firechat/dist/firechat.js"></script>
+
+
+
+    <!-- JQuery is needed by Firechat but it CLASHES with JQLITE.js that is used by ui-scroll !!!!!
+  <script src="lib/jquery/dist/jquery.min.js"></script>
+   -->
+
+
 
     <script src="client/js/app.js"></script>
     <script src="client/js/util.js"></script>
@@ -62,6 +73,7 @@
     <script src="client/js/counteroffer/counteroffer.js"></script>
     <script src="client/js/chat/chat_factory.js"></script>
     <script src="client/js/chat/chat.js"></script>
+    <script src="client/js/chat/invites/invites.js"></script>
     <script src="client/js/notifications/notifications.js"></script>
     <script src="client/js/sidemenu/sidemenu.js"></script>
 

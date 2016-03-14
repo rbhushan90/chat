@@ -55,6 +55,13 @@ function Promise($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicAc
     $rootScope.modal.show();
   };
 
+  this.openInvitesModal = function () {
+      console.log("open invites modal");
+
+      modal = "<px-invites-modal></px-invites-modal>";
+      $rootScope.modal = $ionicModal.fromTemplate(modal, {"modalId":"INVITES"});
+      $rootScope.modal.show();
+  };
 
 
 }

@@ -1,0 +1,30 @@
+<ion-modal-view>
+   <ion-header-bar>
+     <h1 class="title">Chat Invites</h1>
+     <div class="buttons">
+       <button class="button button-clear button-positive" ng-click="Invites.hideModal()">Done</button>
+     </div>
+
+   </ion-header-bar>
+
+ <ion-view>
+
+   <!-- collection-repeat only renders the visible elements. -->
+
+   <ion-content class="has-header chat">
+     <div>{{Invites.warn}}</div>
+
+     <ion-list>
+       <ion-item>Invites</ion-item>
+       <ion-item ng-repeat="invite in Invites.invitations">
+         {{invite.fromUserName}}  {{invite.roomId}}
+         <ion-option-button ng-click="Invites.acceptInvite(invite)" class="button-positive">Accept</ion-option-button>
+         <ion-option-button ng-click="Invites.declineInvite(invite)" class="button-positive">Decline</ion-option-button>
+       </ion-item>
+     </ion-list>
+   </ion-content>
+
+
+ </ion-view>
+
+ </ion-modal-view>

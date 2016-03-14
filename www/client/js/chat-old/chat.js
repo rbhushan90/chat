@@ -1,7 +1,4 @@
 // open in Modal mode
-
-
-
 angular.module('starter').directive('pxChatModal', function () {
   //console.log("chatModal directive");
   return {
@@ -27,76 +24,28 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
 
   Chat = this;
 
-  var baseRef = new Firebase('https://dannybchat.firebaseio.com/room-messages/-KCnAvchlvXeSa369X7A');
-
-
-    Chat.datasource = {};
-    Chat.datasource.get = function(index, count, success) {
-      console.log("DATASOURCE GET()  index=" + index + " count=" + count );
-
-      if ( index<0) {
-        console.log("index < 0, return");
-        return success([]);
-      }
-
-      return $timeout(function() {
-        result = [];
-        baseRef.orderByChild("seqId").startAt(index).limitToFirst(count).once('value').then(function(snapshot) {
-              snapshot.forEach(function(childSnapshot) {
-                var key = childSnapshot.key();
-                var val = childSnapshot.val();
-
-               //console.log("LOAD --> key: ", key + "  val=", val);
-                result.push( val );
-              });
-              return success(result);
-        }, function(error) {
-          console.error(error);
-        });
-
-      }, 100);
-    };
-
-
-
   if ( FirebaseAuth.isAuthenticated() && initChat==false) {
-  //  ChatFactory.setupNewMessageListener(newMessageReceivedCallback);
+    ChatFactory.setupNewMessageListener(newMessageReceivedCallback);
     //ChatFactory.setupRoomInviteListener(roomInviteCallback, roomInviteResponseCallback);
-
-    lastSeqId = 1;
-    count=1;
-    baseRef.orderByChild("seqId").limitToLast(1).on('child_added', function(snapshot) {
-        console.log("latest =", snapshot.val() );
-        //console.log("adapter  =", Chat.adapter);
-       Chat.adapter.append([snapshot.val()]); // pass in an Array !
-
-       $timeout(function() {
-          document.getElementById('myList').scrollTop += 200; // pixels !
-       }, 50);
-        console.log("myList=",   document.getElementById('myList'));
-    });
-
     initChat = true;
-  };
+  }
 
 
   $scope.$on('modal.shown', function(event, modal) {
       console.log('Shown Modal ' + modal.modalId + ' is shown! promiseId = '  + Chat.promiseId);
 
       if ( FirebaseAuth.isAuthenticated() ) {
+        console.log("is Authenticated, ok...");
         Chat.warn = "";
       } else {
         Chat.warn = "You are not Authenticated, please log in";
       }
-
       if ( modal.modalId=="CHAT") {
           ChatFactory.enterPromiseChat(Chat.promiseId);
           Chat.roomId = ChatFactory.getPromiseRoomId(Chat.promiseId);
-
-          //load from a starting point
-          //Chat.adapter.reload(100);    // works first time, then stops working
       }
   });
+
 
   $scope.$on('modal.hidden', function(event, modal) {
        console.log('Hidden Modal ' + modal.modalId + ' is hidden!');
@@ -109,11 +58,6 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
          $rootScope.modal.show();
        }
   });
-
-  Chat.scroll = function() {
-      console.log("scroll....myList=",   document.getElementById('myList').scrollTop);
-      document.getElementById('myList').scrollTop += 9999; // pixels !
-  }
 
   Chat.logEventListener = function() {
     ChatFactory.logEventListeners();
@@ -133,7 +77,7 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
   // when new messags arrive, scroll to bottom
 
   $scope.$watchCollection("Chat.list", function(newValue, oldValue) {
-      //  $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(true);
+        $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(true);
   });
 
 
@@ -162,6 +106,7 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
 
 
   Chat.sendMessage = function() {
+    console.log("CHAT sendMessage......");
 
     /* do validation. I think this is a Meteor library / underscore
     if (_.isEmpty(Chat.data.message)) {
@@ -171,7 +116,7 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
 
     ChatFactory.sendMessage(Chat.roomId, Chat.data.message);
 
-  //  $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(true);
+    $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(true);
 
     delete Chat.data.message;
   }
@@ -182,7 +127,7 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
     }
 
     $timeout(function() {
-      //$ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(true);
+      $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(true);
     }, 300);
   }
 
@@ -190,7 +135,7 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
     if (isIOS) {
       Chat.data.keyboardHeight = 0;
     }
-  //  $ionicScrollDelegate.$getByHandle('chatScroll').resize();
+    $ionicScrollDelegate.$getByHandle('chatScroll').resize();
   }
 
   Chat.closeKeyboard = function() {
@@ -218,9 +163,6 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
         console.log("NEW MESSAGE --> roomId=" + roomId + " msg=",  message);
       }
   }
-
-
-
 
 
 }

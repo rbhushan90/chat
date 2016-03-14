@@ -6,11 +6,13 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter',
 [
-'ionic', 
+'ionic',
 'firebase',
 'ngAnimate',
 'ionic.contrib.ui.tinderCards2',
-'chart.js'
+'chart.js',
+'ui.scroll',
+'ui.scroll.jqlite'
 ])
 
 .run(function($ionicPlatform) {
