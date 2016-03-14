@@ -1,17 +1,16 @@
-// open in Modal mode
 
-
-
-angular.module('starter').directive('pxChatModal', function () {
+angular.module('starter').directive('pxChat', function () {
   //console.log("chatModal directive");
   return {
     restrict: 'E',
     scope: {},
+    /*
     bindToController: {
       promiseId: "@"
     },
+    */
     templateUrl: function() {
-        return 'client/js/chat/chatModal.html';
+        return 'client/js/chat/chat.html';
     },
     controllerAs: 'Chat',
     controller: Chat
@@ -20,19 +19,19 @@ angular.module('starter').directive('pxChatModal', function () {
 
 var initChat=false;
 
-function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $state,
+function Chat ($scope,$rootScope,$ionicActionSheet, $stateParams, $state,
                      $timeout, $ionicScrollDelegate, ChatFactory, FirebaseAuth) {
 
   // console.log("Chat ctrl");
+  var baseRef = new Firebase('https://dannybchat.firebaseio.com/room-messages/-KCnAvchlvXeSa369X7A');
 
   Chat = this;
 
-  var baseRef = new Firebase('https://dannybchat.firebaseio.com/room-messages/-KCnAvchlvXeSa369X7A');
 
 
     Chat.datasource = {};
     Chat.datasource.get = function(index, count, success) {
-      console.log("DATASOURCE GET()  index=" + index + " count=" + count );
+      console.log("datasource get()  index=" + index + " count=" + count );
 
       if ( index<0) {
         console.log("index < 0, return");
@@ -46,7 +45,7 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
                 var key = childSnapshot.key();
                 var val = childSnapshot.val();
 
-               //console.log("LOAD --> key: ", key + "  val=", val);
+               console.log("LOAD --> key: ", key + "  val=", val);
                 result.push( val );
               });
               return success(result);
@@ -58,6 +57,27 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
     };
 
 
+      if ( initChat==false) { // first time
+          console.log("ionic view enter...CHATS");
+
+
+            //  ChatFactory.enterPromiseChat(Chat.promiseId);
+            //  Chat.roomId = ChatFactory.getPromiseRoomId(Chat.promiseId);
+
+              //load from a starting point
+              baseRef.orderByChild("seqId").limitToLast(1).once("child_added").then(function(snapshot) {
+               pos= snapshot.val().seqId
+               console.log("LOAD FROM ----> latest seqId: ", pos );
+
+               $timeout(function() {
+                   Chat.adapter.reload(pos);
+               }, 50);
+             }, function(error) {
+               // The Promise was rejected.
+               console.error("getLatest() error : " + error);
+             });
+
+      }
 
   if ( FirebaseAuth.isAuthenticated() && initChat==false) {
   //  ChatFactory.setupNewMessageListener(newMessageReceivedCallback);
@@ -80,79 +100,17 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
   };
 
 
-  $scope.$on('modal.shown', function(event, modal) {
-      console.log('Shown Modal ' + modal.modalId + ' is shown! promiseId = '  + Chat.promiseId);
-
-      if ( FirebaseAuth.isAuthenticated() ) {
-        Chat.warn = "";
-      } else {
-        Chat.warn = "You are not Authenticated, please log in";
-      }
-
-      if ( modal.modalId=="CHAT") {
-          ChatFactory.enterPromiseChat(Chat.promiseId);
-          Chat.roomId = ChatFactory.getPromiseRoomId(Chat.promiseId);
-
-          //load from a starting point
-          //Chat.adapter.reload(100);    // works first time, then stops working
-      }
-  });
-
-  $scope.$on('modal.hidden', function(event, modal) {
-       console.log('Hidden Modal ' + modal.modalId + ' is hidden!');
-       if ( modal.modalId=="CHAT") {
-         // chat modal closed
-       }
-       if (peekModal()) {
-         console.log("there's a modal is the stack, show it");
-         $rootScope.modal = popModal();
-         $rootScope.modal.show();
-       }
-  });
-
-  Chat.scroll = function() {
-      console.log("scroll....myList=",   document.getElementById('myList').scrollTop);
-      document.getElementById('myList').scrollTop += 9999; // pixels !
-  }
 
   Chat.logEventListener = function() {
     ChatFactory.logEventListeners();
   }
 
 
-  // passed in via Directive
-  console.log("...Chat.promiseId = "  + Chat.promiseId);
-
-  Chat.list = [];
   Chat.invitations = [];
   Chat.data = {}; // holds the new message that User types
   Chat.data.message = "";
 
 
-
-  // when new messags arrive, scroll to bottom
-
-  $scope.$watchCollection("Chat.list", function(newValue, oldValue) {
-      //  $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(true);
-  });
-
-
-  Chat.hideModal = function () {
-        $rootScope.modal.hide();
-  };
-
-  Chat.counterOffer = function () {
-      console.log("hide chat modal");
-
-        $rootScope.modal.hide();
-        pushModal($rootScope.modal);
-
-        console.log("open counter-offer modal");
-        modal = "<px-counteroffer-modal promise-id='" + Promise.promiseId + "'></px-counteroffer-modal>";
-        $rootScope.modal = $ionicModal.fromTemplate(modal);
-        $rootScope.modal.show();
-
-  };
 
 
 
@@ -163,12 +121,12 @@ function Chat ($scope,$rootScope,$ionicActionSheet, $ionicModal, $stateParams, $
 
   Chat.sendMessage = function() {
 
-    /* do validation. I think this is a Meteor library / underscore
-    if (_.isEmpty(Chat.data.message)) {
-      return;
-    }
-    */
-
+    // do validation. I think this is a Meteor library / underscore
+  //  if (_.isEmpty(Chat.data.message)) {
+  //    return;
+//    }
+console.log("hardcoded room !!!");
+Chat.roomId = "-KCnAvchlvXeSa369X7A";
     ChatFactory.sendMessage(Chat.roomId, Chat.data.message);
 
   //  $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(true);

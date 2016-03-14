@@ -1,21 +1,9 @@
-<ion-modal-view>
-   <ion-header-bar>
-     <div class="buttons">
-        <button class="button button-clear button-positive" ng-click="Chat.counterOffer()">Counter</button>
-        <button ng-click="Chat.scroll()" class="button-positive">Scroll</button>
-     </div>
-     <h1 class="title">Chat {{Chat.promiseId}}</h1>
-     <div class="buttons">
-       <button class="button button-clear button-positive" ng-click="Chat.hideModal()">Done</button>
-     </div>
 
-   </ion-header-bar>
-
- <ion-view title="Hello World Promise">
+<ion-view view-title="Chats">
 
    <!-- collection-repeat only renders the visible elements. -->
 
-   <ion-content class="has-header chat">
+   <ion-content has-header="true" has-footer="true" padding="true" has-tabs="true">
 <!--
      <div>{{Chat.warn}}</div>
      <button class="button button-clear button-positive icon-left ion-ios-chatboxes"
@@ -31,15 +19,16 @@
      </ion-list>
 -->
 
-    <div id="myList" ui-scroll-viewport style="height:100px">
+    <div id="myList" ui-scroll-viewport style="height:200px">
         <div ui-scroll="item in Chat.datasource" adapter="Chat.adapter" is-loading="loading" buffer-size='4'>
             {{item.seqId}} {{item.name}} : {{item.message}}
         </div>
     </div>
 
+
    </ion-content>
 
-   <ion-footer-bar keyboard-attach class="bar-stable footer-chat item-input-inset">
+   <div class="bar bar-footer bar-stable sub-footer">
      <button class="button button-clear button-icon button-positive icon ion-ios-upload-outline"></button>
 
      <label class="item-input-wrapper">
@@ -55,7 +44,6 @@
      <span ng-if="Chat.data.message.length > 0">
        <button ng-click="Chat.sendMessage()" class="button button-clear button-positive">Send</button>
      </span>
-   </ion-footer-bar>
- </ion-view>
-
- </ion-modal-view>
+  </div>
+  
+</ion-view>

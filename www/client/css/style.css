@@ -22,3 +22,15 @@
 .item.item-body.integritometer-mini {
   height:200px;
 }
+
+/* Chat - for FOOTER to display
+see: http://codepen.io/mhartington/pen/pumtb (code sample)
+and https://github.com/driftyco/ionic/issues/728 (original)
+*/
+.has-footer.has-tabs {
+  bottom: 93px;
+}
+
+.sub-footer{
+  bottom:50px !important;
+}

@@ -96,7 +96,6 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
       };
       buffer.size = bufferSize;
       buffer.append = function(items) {
-        console.log("append items=",items);
         var item, j, len, results;
         results = [];
         for (j = 0, len = items.length; j < len; j++) {
@@ -359,7 +358,6 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
         return adjustBuffer();
       };
       this.append = function(newItems) {
-        console.log("this.append = ", newItems);
         buffer.append(newItems);
         return adjustBuffer();
       };
@@ -455,7 +453,6 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
             });
           });
           dismissPendingRequests = function() {
-            console.log("dismissPendingRequests()");
             ridActual++;
             return pending = [];
           };
@@ -471,13 +468,10 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
           };
           adapter.reload = reload;
           enqueueFetch = function(rid, direction) {
-            console.log("enqueue fetch direction=", direction);
             if (!adapter.isLoading) {
               adapter.loading(true);
             }
-            console.log("pending =", pending);
             if (pending.push(direction) === 1) {
-              console.log("go fetch");
               return fetch(rid);
             }
           };
@@ -572,11 +566,9 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
             return $timeout(function() {
               processBufferedItems(rid);
               if (viewport.shouldLoadBottom()) {
-                console.log("should load bottom");
                 enqueueFetch(rid, true);
               } else {
                 if (viewport.shouldLoadTop()) {
-                  console.log("shoudl load top");
                   enqueueFetch(rid, false);
                 }
               }
@@ -633,7 +625,6 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
             };
           }
           fetch = function(rid) {
-            console.log("fetch ... rid=" ,rid);
             if (pending[0]) {
               if (buffer.length && !viewport.shouldLoadBottom()) {
                 return adjustBufferAfterFetch(rid);
