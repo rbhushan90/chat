@@ -481,6 +481,8 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
   Firechat.prototype.sendMessage = function(roomId, messageContent, messageType, cb) {
     console.log("in FB ...sendMessage.... roomId=", roomId);
 
+    console.log("---> this=", this);
+    
     var self = this;
     if (!self._user) {
       self._onAuthRequired();

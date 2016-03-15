@@ -41,10 +41,7 @@ function Promise($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicAc
   this.openChatModal = function () {
       console.log("open chat modal promiseId=" + Promise.promiseId);
 
-      // Make a directive like this : <px-chat-modal promise-id='1001'></px-chat-modal>
-      modal = "<px-chat-modal promise-id='" + Promise.promiseId + "'></px-chat-modal>";
-      $rootScope.modal = $ionicModal.fromTemplate(modal, {"modalId":"CHAT"});
-      $rootScope.modal.show();
+      $state.go('tab.chat', {'promiseId':Promise.promiseId});
   };
 
   this.openShareModal = function () {

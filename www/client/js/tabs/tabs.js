@@ -3,27 +3,19 @@ angular.module('starter').directive('pxClearTabHistory', function () {
 
   return {
     restrict: 'A',
-    controllerAs: 'itClearTabHistory',
-    controller: itClearTabHistory
+    controllerAs: 'Tab',
+    controller: Tab
   }
 
-  /*
-  return {
-    link: function(scope, element, attributes){
-     console.log("TAB title = " + attributes.title);
-     //console.log("--attributes--");
-     //console.log(attributes);
-    }
-  }
-  */
 });
 
 
-function itClearTabHistory($scope, $rootScope, $state, $ionicTabsDelegate,$ionicHistory) {
+function Tab($scope, $rootScope, $state, $ionicTabsDelegate,$ionicHistory) {
   console.log("tabs controller...");
 
+  Tab = this;
 
-  $scope.clearHistory = function() {
+  Tab.clearHistory = function() {
     console.log("TabsCtrl  - clear Tab history. Otherwise, when you click a Tab, you get the last View that was displayed there");
     $ionicHistory.clearHistory();
   }

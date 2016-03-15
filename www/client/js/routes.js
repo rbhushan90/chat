@@ -10,6 +10,7 @@ angular.module('starter')
        templateUrl: 'client/js/tabs/tabs.html'
      }
    }
+
   })
 
   .state('tab.watchlist', {
@@ -51,14 +52,15 @@ angular.module('starter')
   })
 
   .state('tab.chat', {
-    url: '/chat',
+    url: '/chat/:promiseId',
     views: {
-      'tab-promise': {
+      'tab-profile': {
         template: '<px-chat></px-chat>'
       }
     }
 
   })
+  
 
   .state('tab.profile', {
     url: '/profile',

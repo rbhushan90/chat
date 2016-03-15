@@ -40,7 +40,7 @@ function Login ($scope, $rootScope,$ionicModal, $timeout, FirebaseAuth, ChatFact
       } else {
         console.log("Authenticated successfully with payload:", authData);
         Login.authData = authData;
-        ChatFactory.setup(authData);
+        //ChatFactory.setup(authData);  // do this in chat controller
       }
     },
       {  scope: "email,user_likes,user_location,user_friends" }

@@ -194,6 +194,7 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
         default:
           result = angular.element('<' + tagName + '></' + tagName + '>');
       }
+
       return result;
     };
     Viewport = function(buffer, element, controllers, attrs) {
@@ -207,7 +208,7 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
       bottomPadding = null;
       averageItemHeight = 0;
       bufferPadding = function() {
-        return viewport.outerHeight() * Math.max(0.1, +attrs.padding || 0.1);
+          return viewport.outerHeight() * Math.max(0.1, +attrs.padding || 0.1);
       };
       viewport.createPaddingElements = function(template) {
         topPadding = new Padding(template);
@@ -457,7 +458,6 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
             return pending = [];
           };
           reload = function() {
-            console.log("reload()");
             dismissPendingRequests();
             if (arguments.length) {
               buffer.clear(arguments[0]);

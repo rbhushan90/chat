@@ -1,11 +1,8 @@
-
 <ion-view view-title="Chats">
-
-   <!-- collection-repeat only renders the visible elements. -->
 
    <ion-content has-header="true" has-footer="true" padding="true" has-tabs="true">
 <!--
-     <div>{{Chat.warn}}</div>
+
      <button class="button button-clear button-positive icon-left ion-ios-chatboxes"
          ng-click="Chat.logEventListener()">Log Event Listener</button>
 
@@ -18,21 +15,30 @@
        </ion-item>
      </ion-list>
 -->
-
-    <div id="myList" ui-scroll-viewport style="height:200px">
+<!--
+    <div id="myList" ui-scroll-viewport style="height:500px">
         <div ui-scroll="item in Chat.datasource" adapter="Chat.adapter" is-loading="loading" buffer-size='4'>
             {{item.seqId}} {{item.name}} : {{item.message}}
         </div>
     </div>
+-->
 
+    <ion-list id="myList" ui-scroll-viewport style="height:300px">
+      <ion-item ui-scroll="item in Chat.datasource" adapter="Chat.adapter" is-loading="loading" buffer-size='10'>
+          {{item.seqId}} {{item.name}} : {{item.message}}
+    </ion-item>
+  </ion-list>
+WIDTH {{Chat.dev_width}},{{Chat.dev_height}}, Calculated Chat height={{Chat.chatbox_height_style}}
 
    </ion-content>
 
    <div class="bar bar-footer bar-stable sub-footer">
+     <!--
      <button class="button button-clear button-icon button-positive icon ion-ios-upload-outline"></button>
+-->
 
-     <label class="item-input-wrapper">
-       <input
+     <label class="item item-input">
+       <input placeholder="Write a message..."
          ng-model="Chat.data.message"
          ng-keyup="$event.keyCode == 13 && Chat.sendMessage();"
          ng-focus="Chat.inputUp()"
@@ -40,10 +46,13 @@
          dir="auto"
          type="text"/>
      </label>
-
+     <!--
      <span ng-if="Chat.data.message.length > 0">
        <button ng-click="Chat.sendMessage()" class="button button-clear button-positive">Send</button>
      </span>
+-->
+  <button ng-click="Chat.sendMessage()" class="button button-clear button-positive">Send</button>
+
+
   </div>
-  
 </ion-view>

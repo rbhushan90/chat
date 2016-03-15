@@ -190,37 +190,6 @@ ref.once("value", function(snapshot) {
     console.log("after.......... ")
     cb(tmp);
 });
-/*
-ref.once("value").then(function(snapshot) {
-  var tmp = [];
-    snapshot.forEach(function(childSnapshot) {
-      var key = childSnapshot.key();
-      var childData = childSnapshot.val();
-      console.log("data = ", childData);
-      tmp.push(childData);
-      //console.log(key + " : ");
-      //console.log("  status:" + childData.status);
-      //console.log("  updatedDate:" + childData.updatedDate);
-    });
-    console.log("after ")
-    cb(tmp);
-}, function(error) {
-  // The Promise was rejected.
-  console.error("getFirstPromise() error : " + error);
-});
-*/
-
-
-/*
-  ref.orderByChild("status").equalTo("declined").on("child_added", function(snapshot) {
-    console.log("DECLINED invites = " , snapshot.val() );
-  });
-
-  ref =  new Firebase("https://dannybchat.firebaseio.com/users/" + uid + "/invites");
-  ref.orderByChild("status").equalTo("accepted").on("child_added", function(snapshot) {
-    console.log("ACCEPTED invites = " , snapshot.val() );
-  });
-*/
 
 }
 
