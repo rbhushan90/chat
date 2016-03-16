@@ -17,27 +17,15 @@ angular.module('starter').directive('pxChat', function() {
   }
 });
 
-var initChat = false;
 var baseRef = new Firebase('https://dannybchat.firebaseio.com/room-messages/-KCnAvchlvXeSa369X7A');
 
-function Chat($scope, $rootScope, $ionicActionSheet, $stateParams, $state, $window,
-  $ionicHistory, $ionicNavBarDelegate,
-  $timeout, $ionicScrollDelegate, ChatFactory, FirebaseAuth) {
+function Chat($scope, $rootScope, $stateParams, $state, $window,
+  $timeout, ChatFactory, FirebaseAuth) {
 
 
   Chat = this;
   Chat.promiseId = $stateParams.promiseId;
-
-
-  // window height : http://www.gajotres.net/ionic-framework-get-page-height-width/
-  //Chat.dev_width = $window.innerWidth;
-  //Chat.dev_height = $window.innerHeight;
-
-  chatbox_height = $window.innerHeight - 100;  // minus the Tab bar and the 'send message' bar
-  chatbox_height_style = "height:" + chatbox_height + "px";
-
-  console.log("Calculated chat height=", chatbox_height_style);
-  document.getElementById('myList').style = chatbox_height_style;
+  initChatHeight();
 
 
   Chat.datasource = {};
@@ -67,49 +55,35 @@ function Chat($scope, $rootScope, $ionicActionSheet, $stateParams, $state, $wind
     }, 100);
   };
 
-  if (FirebaseAuth.isAuthenticated() && initChat == false) {
-    //  ChatFactory.setupNewMessageListener(newMessageReceivedCallback);
-    //ChatFactory.setupRoomInviteListener(roomInviteCallback, roomInviteResponseCallback);
 
-    lastSeqId = 1;
-    count = 1;
-    baseRef.orderByChild("seqId").limitToLast(1).on('child_added', function(snapshot) {
-      console.log("latest =", snapshot.val());
-      //console.log("adapter  =", Chat.adapter);
-      Chat.adapter.append([snapshot.val()]); // pass in an Array !
 
-      $timeout(function() {
-        document.getElementById('myList').scrollTop += 200; // pixels !
-      }, 50);
-      console.log("myList=", document.getElementById('myList'));
-    });
-
-    initChat = true;
-  };
+  $scope.$on( "$ionicView.leave", function( scopes, states ) {
+       console.log("ionicView leave - unsubscribe from notifications of new messages");
+       //baseRef.off("child_added", newMessage);
+       ChatFactory.leavePromiseChat(Chat.promiseId);
+       ChatFactory.cancelEventListener("message-add");
+  });
 
 
    $scope.$on( "$ionicView.enter", function( scopes, states ) {
     console.log("-------> ionic view enter...CHATS");
 
-
-    console.log("history:", $ionicHistory.viewHistory());
-
-    console.log("back=", $ionicHistory.backView() );
-
-
     var authData = baseRef.getAuth();
     if (authData) {
       console.log("Authenticated user with uid:", authData.uid);
-      ChatFactory.setup(authData);
+      ChatFactory.setup(authData, Chat.promiseId);
     } else {
       alert("You are not logged in !!!!! ");
     }
 
+    // listen for new chat messages
+    //baseRef.orderByChild("seqId").limitToLast(1).on('child_added', newMessage );
 
-    ChatFactory.enterPromiseChat(Chat.promiseId);
+    ChatFactory.setupNewMessageListener(newMessageReceivedCallback);
     Chat.roomId = ChatFactory.getPromiseRoomId(Chat.promiseId);
 
     //load from a starting point
+
     baseRef.orderByChild("seqId").limitToLast(1).once("child_added").then(function(snapshot) {
       pos = snapshot.val().seqId
       console.log("LOAD latest chats starting from seqId: ", pos);
@@ -161,11 +135,37 @@ function Chat($scope, $rootScope, $ionicActionSheet, $stateParams, $state, $wind
     // cordova.plugins.Keyboard.close();
   }
 
-  Chat.backToPromise = function() {
-      $state.go("tab.promise", {promiseId: Chat.promiseId});
+
+    Chat.logEventListener = function() {
+      ChatFactory.logEventListeners();
+    }
+
+  function initChatHeight() {
+    // window height : http://www.gajotres.net/ionic-framework-get-page-height-width/
+    //Chat.dev_width = $window.innerWidth;
+    //Chat.dev_height = $window.innerHeight;
+
+    chatbox_height = $window.innerHeight - 100;  // minus the Tab bar and the 'send message' bar
+    chatbox_height_style = "height:" + chatbox_height + "px";
+
+    console.log("Calculated chat height=", chatbox_height_style);
+    document.getElementById('myList').style = chatbox_height_style;
+  }
+
+  function newMessage(snapshot) {
+    console.log("new Message, latest =", snapshot.val());
+    //console.log("adapter  =", Chat.adapter);
+    Chat.adapter.append([snapshot.val()]); // pass in an Array !
+
+    $timeout(function() {
+      document.getElementById('myList').scrollTop += 200; // pixels !
+    }, 10);
+    //console.log("myList=", document.getElementById('myList'));
   }
 
   function newMessageReceivedCallback(roomId, message) {
+    console.log("NEW MESSAGE --> roomId=" + roomId + " msg=", message);
+
     usersCurrentRoom = Chat.roomId;
     console.log("[NEW MESSAGE] User's current room:" + usersCurrentRoom + "  message for room:" + roomId);
 
@@ -177,11 +177,13 @@ function Chat($scope, $rootScope, $ionicActionSheet, $stateParams, $state, $wind
     var userId = message.userId;
     if (!this._user || !this._user.muted || !this._user.muted[userId]) {
       if (usersCurrentRoom == roomId)
-        $timeout(function() {
-          Chat.list.push(message);
-        }, 300);
+      Chat.adapter.append([message]); // pass in an Array !
 
-      console.log("NEW MESSAGE --> roomId=" + roomId + " msg=", message);
+      $timeout(function() {
+        document.getElementById('myList').scrollTop += 200; // pixels !
+      }, 10);
+
     }
   }
+
 }

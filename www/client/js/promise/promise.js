@@ -18,8 +18,7 @@ function Promise($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicHi
 
 
   $scope.$on( "$ionicView.enter", function( scopes, states ) {
-    console.log("ionic view enter...PROMISE");
-    console.log("back=", $ionicHistory.backView() );
+    //console.log("ionic view enter...PROMISE");
 
     Promise.promiseId = $stateParams.promiseId;
 

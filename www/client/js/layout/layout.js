@@ -11,7 +11,7 @@ angular.module('starter').directive('pxLayout', function () {
 });
 
 
-function Layout($scope, $rootScope,  $state, $ionicHistory,  $timeout) {
+function Layout($scope, $ionicHistory) {
 
   Layout = this;
 

@@ -10,22 +10,23 @@ rooms['Promise-2'] = '-KChc4XW1mqQmZkhxp_8';
 rooms['Promise-3'] = '-KChc9phm0NpDt82_2gV';
 
 function ChatFactory() {
+
+  _options = {};
+  _options.numMaxMessages = 50;  // get one new message at a time
+
   fbRef =  new Firebase(firebaseUrl);
-  firechat = new Firechat(fbRef);
+  firechat = new Firechat(fbRef, _options);
 
 	return {
       setup: setup,
-      teardown: teardown,
       getPromiseRoomId: getPromiseRoomId,
       setupNewMessageListener: setupNewMessageListener,
       setupRoomInviteListener: setupRoomInviteListener,
-      enterPromiseChat:enterPromiseChat,
-
       eventListener: eventListener,
       cancelEventListener: cancelEventListener,
       logEventListeners: logEventListeners,
       createPrivateRoom : createPrivateRoom,
-      enterPromiseChat : enterPromiseChat,
+      leavePromiseChat : leavePromiseChat,
       inviteUserToChat : inviteUserToChat,
       acceptInviteToChat : acceptInviteToChat,
       declineInviteToChat: declineInviteToChat,
@@ -75,16 +76,18 @@ function inviteUserToChat(userId, promiseId) {
 }
 
 
-function enterPromiseChat(promiseId) {
-  console.log("enterPromiseChat() promiseId= " + promiseId);
+
+function leavePromiseChat(promiseId) {
+  console.log("leavePromiseChat() promiseId= " + promiseId);
   // pass in a callback
 
   roomId = getPromiseRoomId(promiseId);
-  firechat.enterRoom(roomId);
+  firechat.leaveRoom(roomId);
 }
 
+
 function enterRoomCallback() {
-  console.log("enterRoomCallback...");
+  console.log("----> enterRoomCallback...");
 }
 
 
@@ -98,15 +101,17 @@ function messageSentCallback(e) {
     console.log("MessageSent callback e=", e);
 }
 
-function setup(authData) {
-    console.log("INIT CHATS !!! should be done ONCE only uid="+authData.uid);
+function setup(authData, promiseId) {
+    console.log("INIT CHATS !!! setup="+authData.uid);
 
+    // enter the room after setUser
     firechat.setUser(authData.uid, authData.facebook.displayName, function(user) {
       console.log("setUser() callback : USER....", user);
+      roomId = getPromiseRoomId(promiseId);
+      firechat.enterRoom(roomId);
     });
 
-   eventListener("auth-required", firechatAuthRequiredCallback);
-  //  eventListener("message-add", newMessageReceivedCallback);
+
   //  eventListener("room-invite", roomInviteReceivedCallback);
 }
 
@@ -138,12 +143,6 @@ function declineInviteCallback(c) {
   console.log("DECLINED ...c: ", c);
 }
 
-function teardown() {
-  initChat=false;
-  cancelEventListener("message-add");
-  cancelEventListener("room-invite");
-  logEventListeners();
-}
 
  function getPromiseRoomId(promiseId) {
    roomName = getRoomName(promiseId);

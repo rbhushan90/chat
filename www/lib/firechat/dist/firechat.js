@@ -134,6 +134,8 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
 
     // The number of historical messages to load per room.
     this._options.numMaxMessages = this._options.numMaxMessages || 50;
+
+    console.log("FB ----> _options.numMaxMessages=", this._options.numMaxMessages);
   }
 
   // Run Firechat in *noConflict* mode, returning the `Firechat` variable to
@@ -190,7 +192,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
       // Generate a unique session id for the visit.
       var sessionRef = this._userRef.child('sessions').push();
       this._sessionId = sessionRef.key();
-      console.log("------------> SESSION ID=" + this._sessionId);
+      console.log("_setupDataEvents()------------> SESSION ID=" + this._sessionId);
       this._queuePresenceOperation(sessionRef, true, null);
 
       // Register our username in the public user listing.
@@ -405,18 +407,20 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
     self.getRoom(roomId, function(room) {
       var roomName = room.name;
 
+      console.log("room name=", roomName);
+
       if (!roomId || !roomName) return;
 
-  //console.log("my rooms=", self._rooms);
-  //console.log("my userId=", self._userId);
-  //console.log("sessionId=",self._sessionId);
 
       // Skip if we're already in this room.
       if (self._rooms[roomId]) {
+        console.log("Skip, we are already in this room. new messages callback won't be set");
         return;
       }
 
       self._rooms[roomId] = true;
+
+console.log("test self._user=", self._user);
 
       if (self._user) {
         // Save entering this room to resume the session again later.
@@ -426,6 +430,10 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
           active: true
         });
 
+console.log("after set Room active user");
+
+console.log("self._userId=",self._userId);
+console.log("self._sessionId=",self._sessionId);
 
         // Set presence bit for the room and queue it for removal on disconnect.
         var presenceRef = self._firebase.child('room-users').child(roomId).child(self._userId).child(self._sessionId);
@@ -436,6 +444,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
       }
 
       // Invoke our callbacks before we start listening for new messages.
+      console.log("invoke room enter callback");
       self._onEnterRoom({ id: roomId, name: roomName });
 
       // Setup message listeners
@@ -456,6 +465,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
 
   // Leave a chat room.
   Firechat.prototype.leaveRoom = function(roomId) {
+    console.log("FB ....leave Room !");
     var self = this,
         userRoomRef = self._firebase.child('room-users').child(roomId);
 
@@ -482,7 +492,7 @@ this["FirechatDefaultTemplates"]["templates/user-search-list-item.html"] = funct
     console.log("in FB ...sendMessage.... roomId=", roomId);
 
     console.log("---> this=", this);
-    
+
     var self = this;
     if (!self._user) {
       self._onAuthRequired();
