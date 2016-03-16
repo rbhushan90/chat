@@ -1,11 +1,7 @@
-<ion-view view-title="Chats">
+<ion-view title="Chat">
 
    <ion-content has-header="true" has-footer="true" padding="true" has-tabs="true">
 <!--
-
-     <button class="button button-clear button-positive icon-left ion-ios-chatboxes"
-         ng-click="Chat.logEventListener()">Log Event Listener</button>
-
      <ion-list>
        <ion-item>Invites</ion-item>
        <ion-item ng-repeat="invite in Chat.invitations">
@@ -22,13 +18,11 @@
         </div>
     </div>
 -->
-
     <ion-list id="myList" ui-scroll-viewport style="height:300px">
       <ion-item ui-scroll="item in Chat.datasource" adapter="Chat.adapter" is-loading="loading" buffer-size='10'>
           {{item.seqId}} {{item.name}} : {{item.message}}
     </ion-item>
   </ion-list>
-WIDTH {{Chat.dev_width}},{{Chat.dev_height}}, Calculated Chat height={{Chat.chatbox_height_style}}
 
    </ion-content>
 

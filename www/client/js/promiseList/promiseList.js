@@ -11,7 +11,7 @@ angular.module('starter').directive('pxPromiseList', function () {
 });
 
 
-function PromiseList($scope, $rootScope) {
+function PromiseList($scope, $rootScope,$ionicHistory) {
   this.data = {
     items: []
   };
@@ -25,6 +25,7 @@ function PromiseList($scope, $rootScope) {
   $scope.$on( "$ionicView.enter", function( scopes, states ) {
       console.log("ionic view enter...PROMISE");
       broadcast($rootScope, 'rootScope:broadcast:sideMenu', 'promiseMenu');
+      console.log("back=", $ionicHistory.backView() );
 
   });
 }

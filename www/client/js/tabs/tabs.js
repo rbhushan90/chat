@@ -16,7 +16,7 @@ function Tab($scope, $rootScope, $state, $ionicTabsDelegate,$ionicHistory) {
   Tab = this;
 
   Tab.clearHistory = function() {
-    console.log("TabsCtrl  - clear Tab history. Otherwise, when you click a Tab, you get the last View that was displayed there");
-    $ionicHistory.clearHistory();
+  //  console.log("TabsCtrl  - clear Tab history. Otherwise, when you click a Tab, you get the last View that was displayed there");
+  //  $ionicHistory.clearHistory();
   }
 }

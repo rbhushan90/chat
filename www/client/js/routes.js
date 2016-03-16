@@ -54,13 +54,13 @@ angular.module('starter')
   .state('tab.chat', {
     url: '/chat/:promiseId',
     views: {
-      'tab-profile': {
+      'tab-promise': {
         template: '<px-chat></px-chat>'
       }
     }
 
   })
-  
+
 
   .state('tab.profile', {
     url: '/profile',

@@ -11,13 +11,15 @@ angular.module('starter').directive('pxPromise', function () {
 });
 
 
-function Promise($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicActionSheet, ChatFactory) {
+function Promise($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicHistory, $ionicActionSheet, ChatFactory) {
   //console.log("promise controller");
 
   Promise = this;
 
+
   $scope.$on( "$ionicView.enter", function( scopes, states ) {
-    //console.log("ionic view enter...PROMISE");
+    console.log("ionic view enter...PROMISE");
+    console.log("back=", $ionicHistory.backView() );
 
     Promise.promiseId = $stateParams.promiseId;
 

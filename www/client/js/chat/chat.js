@@ -2,8 +2,9 @@ angular.module('starter').directive('pxChat', function() {
   //console.log("chatModal directive");
   return {
     restrict: 'E',
-    scope: {},
     /*
+    scope: {},
+
         bindToController: {
           promiseId: "@"
         },
@@ -20,10 +21,13 @@ var initChat = false;
 var baseRef = new Firebase('https://dannybchat.firebaseio.com/room-messages/-KCnAvchlvXeSa369X7A');
 
 function Chat($scope, $rootScope, $ionicActionSheet, $stateParams, $state, $window,
+  $ionicHistory, $ionicNavBarDelegate,
   $timeout, $ionicScrollDelegate, ChatFactory, FirebaseAuth) {
+
 
   Chat = this;
   Chat.promiseId = $stateParams.promiseId;
+
 
   // window height : http://www.gajotres.net/ionic-framework-get-page-height-width/
   //Chat.dev_width = $window.innerWidth;
@@ -83,9 +87,15 @@ function Chat($scope, $rootScope, $ionicActionSheet, $stateParams, $state, $wind
     initChat = true;
   };
 
-  // Quirk !! see: https://forum.ionicframework.com/t/ionicview-events-not-firing/19825/8
-   $scope.$parent.$on( "$ionicView.enter", function( scopes, states ) {
+
+   $scope.$on( "$ionicView.enter", function( scopes, states ) {
     console.log("-------> ionic view enter...CHATS");
+
+
+    console.log("history:", $ionicHistory.viewHistory());
+
+    console.log("back=", $ionicHistory.backView() );
+
 
     var authData = baseRef.getAuth();
     if (authData) {
@@ -130,7 +140,6 @@ function Chat($scope, $rootScope, $ionicActionSheet, $stateParams, $state, $wind
       return;
     }
 
-
     ChatFactory.sendMessage(Chat.roomId, Chat.data.message);
     delete Chat.data.message;
   }
@@ -153,7 +162,7 @@ function Chat($scope, $rootScope, $ionicActionSheet, $stateParams, $state, $wind
   }
 
   Chat.backToPromise = function() {
-      $state.go("tab.promise")
+      $state.go("tab.promise", {promiseId: Chat.promiseId});
   }
 
   function newMessageReceivedCallback(roomId, message) {
