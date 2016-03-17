@@ -685,6 +685,7 @@ angular.module('ui.scroll', []).directive('uiScrollViewport', function() {
           viewport.bind('scroll', resizeAndScrollHandler);
           viewport.bind('mousewheel', wheelHandler);
           $scope.$watch(datasource.revision, function() {
+            console.log("datasource.revision detected.... !! ");
             return reload();
           });
           $scope.$on('$destroy', function() {

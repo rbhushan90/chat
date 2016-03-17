@@ -1,37 +1,31 @@
 
 angular.module('starter').factory('ChatFactory',  ChatFactory);
 
-var initChat=false;
-var rooms = {};
 
+var rooms = {};
 // hardcoded - temp only.  Meteor should store the Room keys
 rooms['Promise-1'] = '-KCnAvchlvXeSa369X7A';
-rooms['Promise-2'] = '-KChc4XW1mqQmZkhxp_8';
-rooms['Promise-3'] = '-KChc9phm0NpDt82_2gV';
+rooms['Promise-2'] = '-KD1rOZWpRsLF37IHQX1';
+rooms['Promise-3'] = '-KD1s4z83aRxMBcAUF7G';
 
 function ChatFactory() {
 
   _options = {};
-  _options.numMaxMessages = 50;  // get one new message at a time
+  _options.numMaxMessages = 1;  // get one new message at a time
 
   fbRef =  new Firebase(firebaseUrl);
   firechat = new Firechat(fbRef, _options);
 
 	return {
-      setup: setup,
-      getPromiseRoomId: getPromiseRoomId,
-      setupNewMessageListener: setupNewMessageListener,
       setupRoomInviteListener: setupRoomInviteListener,
       eventListener: eventListener,
       cancelEventListener: cancelEventListener,
       logEventListeners: logEventListeners,
       createPrivateRoom : createPrivateRoom,
-      leavePromiseChat : leavePromiseChat,
       inviteUserToChat : inviteUserToChat,
       acceptInviteToChat : acceptInviteToChat,
       declineInviteToChat: declineInviteToChat,
-      getRoomInvites: getRoomInvites,
-      sendMessage : sendMessage
+      getRoomInvites: getRoomInvites
 	};
 }
 
@@ -75,50 +69,6 @@ function inviteUserToChat(userId, promiseId) {
   firechat.inviteUser(userId, roomId);
 }
 
-
-
-function leavePromiseChat(promiseId) {
-  console.log("leavePromiseChat() promiseId= " + promiseId);
-  // pass in a callback
-
-  roomId = getPromiseRoomId(promiseId);
-  firechat.leaveRoom(roomId);
-}
-
-
-function enterRoomCallback() {
-  console.log("----> enterRoomCallback...");
-}
-
-
-function sendMessage (roomId, text) {
-  console.log("sendMessage()  roomId=" + roomId + " text="+text);
-
-  firechat.sendMessage( roomId, text, 'default', messageSentCallback);
-}
-
-function messageSentCallback(e) {
-    console.log("MessageSent callback e=", e);
-}
-
-function setup(authData, promiseId) {
-    console.log("INIT CHATS !!! setup="+authData.uid);
-
-    // enter the room after setUser
-    firechat.setUser(authData.uid, authData.facebook.displayName, function(user) {
-      console.log("setUser() callback : USER....", user);
-      roomId = getPromiseRoomId(promiseId);
-      firechat.enterRoom(roomId);
-    });
-
-
-  //  eventListener("room-invite", roomInviteReceivedCallback);
-}
-
-function setupNewMessageListener(newMessageReceivedCallback) {
-  console.log("setupNewMessageListener()");
-  eventListener("message-add", newMessageReceivedCallback);
-}
 
 
 function setupRoomInviteListener(roomInviteCallback, roomInviteResponseCallback) {
@@ -190,13 +140,4 @@ ref.once("value", function(snapshot) {
     cb(tmp);
 });
 
-}
-
-// CALLBACKS
-
-// it could happen that we are logged into Firebase, but not into Firechat (via setUser() )
-function firechatAuthRequiredCallback() {
-  m = "============ LOST connection to firechat. Please re-login======";
-  console.log(m);
-  alert(m);
 }

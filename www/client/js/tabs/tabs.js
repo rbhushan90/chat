@@ -1,6 +1,5 @@
 angular.module('starter').directive('pxClearTabHistory', function () {
-  console.log("tabs directive");
-
+  
   return {
     restrict: 'A',
     controllerAs: 'Tab',

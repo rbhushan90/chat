@@ -1,6 +1,6 @@
 <ion-view title="Chat">
 
-   <ion-content has-header="true" has-footer="true" padding="true" has-tabs="true">
+   <ion-content class="has-header" has-footer="true" padding="true" has-tabs="true">
 <!--
      <ion-list>
        <ion-item>Invites</ion-item>
@@ -18,7 +18,7 @@
         </div>
     </div>
 -->
-    <ion-list id="myList" ui-scroll-viewport style="height:300px">
+    <ion-list id="myChatList" ui-scroll-viewport style="height:300px">
       <ion-item ui-scroll="item in Chat.datasource" adapter="Chat.adapter" is-loading="loading" buffer-size='10'>
           {{item.seqId}} {{item.name}} : {{item.message}}
     </ion-item>

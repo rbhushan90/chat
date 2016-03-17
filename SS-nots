@@ -7,11 +7,6 @@ Event listeners
 ---------------
 1. each time you add a listener for the same event, it is PUSHED into a stack.
 
-on "message-add" event
-----------------------
-all listeners for this event will get the same message.
-You need to filter by roomId to get the messages you want
-
 Quirks
 ------
 Once you are invited, you are authorised to use the Room.
@@ -21,15 +16,17 @@ To do : if User decline, remove user from  /room-metadata/{room}/authorisedUsers
 Order of Execution
 ------------------
 1. Firechat.setUser(userId, userName, onComplete)
-
 2. add listeners
-
 3. Firechat.enterRoom(roomId)
 
-Chat ( 13 March )
------------------
-(1) firechat.js --- customised firechat.js. Added Sequence Id to (1) room-metadata and (2) room-messages
-(2) use angular-ui-scroll for infinite scrolling.
+Firechat.js : I have customised this file !! Renamed to firechat_ssedit.js
+---------------------------------------------------------------------------
+(1) Added Sequence Id to (1) room-metadata and (2) room-messages
+(2) Deleted the FirechatUI functions (not used ! removed to reduce file size)
+
+scroll
+------
+(1) use angular-ui-scroll for scrolling.
   $ bower install angular-ui-scroll
 
-(3) How to load a list from a  starting point ---> Chat.adapter.reload(startIndex);
+(2) How to load a list from a  starting point ---> Chat.adapter.reload(startIndex);

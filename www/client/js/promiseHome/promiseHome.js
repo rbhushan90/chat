@@ -1,5 +1,4 @@
 angular.module('starter').directive('pxPromiseHome', function () {
-  console.log("promiseHome directive");
   return {
     restrict: 'E',
     templateUrl: function() {
@@ -16,12 +15,10 @@ function PromiseHome($scope, $rootScope, $state, $ionicModal, $ionicActionSheet)
   PromiseHome = this;
 
   this.openPromiseList = function () {
-      console.log("open promise list");
-      $state.go("tab.promiselist");
+    $state.go("tab.promiselist");
   };
 
   this.openWatchList = function () {
-      console.log("open watch list");
       $state.go("tab.watchlist");
   };
 
