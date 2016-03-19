@@ -1,0 +1,31 @@
+<ion-modal-view>
+   <ion-header-bar>
+     <h1 class="title">Contact Us</h1>
+     <div class="buttons">
+       <button class="button button-clear button-positive" ng-click="ContactUs.hideModal()">Done</button>
+     </div>
+   </ion-header-bar>
+
+   <ion-content class="has-header">
+     <form>
+
+     <label class="item item-input item-stacked-label">
+       <span class="input-label">Message</span>
+       <input type="text" placeholder="Write us a Message...">
+     </label>
+
+     <label class="item item-input item-select item-stacked-label">
+       <span class="input-label">Category</span>
+       <select>
+         <option selected>Query</option>
+         <option>Suggestion</option>
+         <option>Bug Report</option>
+         <option>Other</option>
+       </select>
+     </label>
+
+       <button class="button button-block button-energized" ng-click="ContactUs.save()">Send</button>
+
+     </form>
+   </ion-content>
+ </ion-modal-view>

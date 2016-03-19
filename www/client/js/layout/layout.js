@@ -10,8 +10,8 @@ angular.module('starter').directive('pxLayout', function () {
   }
 });
 
-
-function Layout($scope, $ionicHistory) {
+count=0;
+function Layout($scope, $rootScope, $state, $ionicHistory, $ionicModal, FirebaseAuth) {
 
   Layout = this;
 
@@ -28,4 +28,19 @@ function Layout($scope, $ionicHistory) {
     return false;
   }
 
+
+  Layout.createPromise = function () {
+    console.log("create promise");
+      $state.go('tab.promise', {'promiseId':1});
+  };
+
+  Layout.contacts = function () {
+      //$state.go('tab.contacts');
+      $rootScope.modal = $ionicModal.fromTemplate("<px-contacts-modal></px-contacts-modal>");
+      $rootScope.modal.show();
+  };
+
+  Layout.isLoggedIn =function() {
+    return FirebaseAuth.isAuthenticated();
+  }
 };

@@ -1,0 +1,26 @@
+   <ion-view view-title="Integritometer">
+
+    <ion-content scroll="false" class="has-header">
+      <section class="login-container">
+         <div class = "col header text-center">
+            <img src="./img/Integritometer.png" class = "logo" />
+         </div>
+         <div class = "col button-row text-center" ng-show="Login.isGuest()"  ng-click="Login.loginFacebook()">
+            <img src="./img/facebook.png" />
+         </div>
+         <div class = "col button-row text-center" ng-show="Login.isGuest()"  ng-click="Login.loginEmail()">
+            <img src="./img/login.png" />
+            <BR><a href="#">Forgot password?</a>
+         </div>
+         <div class = "col button-row text-center" ng-show="Login.isGuest()"  ng-click="Login.register()">
+            <img src="./img/signup.png" />
+         </div>
+         <div class = "col button-row text-center" ng-show="Login.isLoggedIn()">
+            <div>You are logged in as <b>{{Login.userName}}</b></div>
+            <div><button class="button button-block button-positive" id="logout" ng-click="Login.logout()">Logout</button></div>
+         </div>
+     </section>
+    </ion-content>
+
+     </ion-content>
+   </ion-view>

@@ -14,7 +14,7 @@ function FirebaseAuth() {
       isAuthenticated : function() {
         authData = authRef.getAuth();
         if ( authData !=null ) {
-          console.log("USER is logged in....carry on user=" + authData.uid);
+          //console.log("USER is logged in....carry on user=" + authData.uid);
           return true;
         }
         else {

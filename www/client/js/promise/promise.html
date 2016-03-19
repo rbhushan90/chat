@@ -18,8 +18,12 @@
         <input type="text" placeholder="and the forfeit?">
       </label>
       <label class="item item-input">
-        <span class="input-label">Due</span>
+        <span class="input-label">Due Date</span>
         <input type="date">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Time</span>
+        <input type="time">
       </label>
       <label class="item item-input item-select item-stacked-label">
         <span class="input-label">Area</span>
@@ -45,19 +49,30 @@
           <option>Completed</option>
         </select>
       </label>
+      <label class="item item-input item-select item-stacked-label">
+        <span class="input-label">Value</span>
+        <select>
+          <option selected>Good Stuff</option>
+          <option>Ermm..</option>
+          <option>Waking Up</option>
+          <option>Routine</option>
+        </select>
+      </label>
+      <label class="item item-input item-select item-stacked-label">
+        <span class="input-label">Sharable?</span> <!-- allow Friends to share this Promise on Social Media ? -->
+        <select>
+          <option selected>Yes</option>
+          <option>No</option>
+        </select>
+      </label>
 
-      <div class="padding input-label">
-        <button class="button button-clear button-positive icon-left ion-share"
-            ng-click="Promise.openShareModal()">Share</button>
-          &nbsp;
-        <button class="button button-clear button-positive icon-left ion-ios-chatboxes"
-            ng-click="Promise.openChatModal()">Chat</button>
-          &nbsp;
-        <button class="button button-clear button-positive icon-left ion-ios-chatboxes"
-              ng-click="Promise.logEventListener()">Log Event Listener</button>
-        <button class="button button-clear button-positive icon-left ion-ios-chatboxes"
-                    ng-click="Promise.openInvitesModal()">Manage Invites</button>
-      </div>
+      <!-- Enable Counter-offer if Promise is shared with only 1 person. -->
+
+        <div class="button-bar">
+          <a ng-click="Promise.openShare()" class="button button-small button-outline button-calm icon-left ion-share">Share</a>
+          <a ng-click="Promise.openChat()" class="button button-small button-outline button-calm icon-left ion-ios-chatboxes">Chat</a>
+        </div>
+
       <label class="item">
 
         <img class="round-profile-photo" ng-src="img/max.png">

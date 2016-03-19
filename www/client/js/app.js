@@ -30,6 +30,8 @@ angular.module('starter',
     }
   });
 })
+
+
 /*
 if (Meteor.isCordova) {
   angular.element(document).on('deviceready', onReady);

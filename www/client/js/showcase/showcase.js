@@ -1,9 +1,8 @@
-angular.module('starter').directive('pxShowcase', function () {
-  console.log("showcase directive");
+angular.module('starter').directive('pxShowcaseModal', function () {
   return {
     restrict: 'E',
     templateUrl: function() {
-        return 'client/js/showcase/showcase.html';
+        return 'client/js/showcase/showcaseModal.html';
     },
     controllerAs: 'Showcase',
     controller: Showcase
@@ -12,8 +11,7 @@ angular.module('starter').directive('pxShowcase', function () {
 
 
 function Showcase($scope, $rootScope) {
-  console.log("Showcase ctrl");
-  var contacts = [
+  var list = [
     {
       name: 'To create a new Promise...',
       image: 'img/list1.jpg',
@@ -36,8 +34,12 @@ function Showcase($scope, $rootScope) {
     }
   ];
 
-  this.list = contacts;
+  Showcase = this;
 
+  Showcase.list = list;
+  Showcase.hideModal = function () {
+      $rootScope.modal.hide();
+  };
 
   $scope.$on( "$ionicView.enter", function( scopes, states ) {
       broadcast($rootScope, 'rootScope:broadcast:sideMenu', 'promiseMenu');

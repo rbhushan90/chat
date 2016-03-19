@@ -12,7 +12,7 @@ angular.module('starter').directive('pxTinder', function () {
 
 
 function Tinder($scope, TDCardDelegate, $timeout, $ionicSideMenuDelegate) {
-      Tinder = this;
+
 
       var cardTypes = [
         {
@@ -37,6 +37,8 @@ function Tinder($scope, TDCardDelegate, $timeout, $ionicSideMenuDelegate) {
   			  description: 'Start a Company'
   			}
       ];
+
+      Tinder = this;
 
       Tinder.cards = {
         master: Array.prototype.slice.call(cardTypes, 0),
@@ -64,7 +66,7 @@ function Tinder($scope, TDCardDelegate, $timeout, $ionicSideMenuDelegate) {
         Tinder.cards.discards = [];
         Tinder.cards.liked = [];
         Tinder.cards.disliked = [];
-                
+
         $timeout(function() {
           Tinder.cards.active = Array.prototype.slice.call(Tinder.cards.master, 0);
         });
@@ -87,7 +89,8 @@ function Tinder($scope, TDCardDelegate, $timeout, $ionicSideMenuDelegate) {
       };
 
       Tinder.flip = function(card) {
-       Tinder.onOff =  !$Tinder.onOff;
+        console.log("Tinder flip");
+       Tinder.onOff =  !Tinder.onOff;
        if  (Tinder.onOff) {
          card.image = "img/note_paper.jpg";
          card.name="In 2 Weeks";

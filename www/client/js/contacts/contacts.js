@@ -1,5 +1,4 @@
 angular.module('starter').directive('pxContacts', function () {
-  console.log("contacts directive");
   return {
     restrict: 'E',
     templateUrl: function() {
@@ -11,8 +10,7 @@ angular.module('starter').directive('pxContacts', function () {
 });
 // open in Modal mode
 angular.module('starter').directive('pxContactsModal', function () {
-  console.log("contactsModal directive");
-  return {
+    return {
     restrict: 'E',
     templateUrl: function() {
         return 'client/js/contacts/contactsModal.html';
@@ -23,7 +21,6 @@ angular.module('starter').directive('pxContactsModal', function () {
 });
 
 function Contacts($scope, $rootScope,$ionicActionSheet) {
-  console.log("Contacts ctrl");
   var list = [
     {
       name: 'Adam Jones',
@@ -43,18 +40,19 @@ function Contacts($scope, $rootScope,$ionicActionSheet) {
     }
   ];
 
-  this.list = list;
+  Contacts = this;
+  Contacts.list = list;
 
-  this.hideModal = function () {
+  Contacts.hideModal = function () {
         $rootScope.modal.hide();
   };
 
-  this.showActions = function() {
-      showContactsActionSheet($ionicActionSheet);
+  Contacts.sendInvite = function() {
+      console.log("send invite");
+      Contacts.hideModal();
   }
 
   $scope.$on( "$ionicView.enter", function( scopes, states ) {
-      console.log("ionic view enter...CONTACTS");
       broadcast($rootScope, 'rootScope:broadcast:sideMenu', 'contactsMenu');
   });
 }

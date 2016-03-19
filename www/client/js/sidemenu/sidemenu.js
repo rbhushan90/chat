@@ -15,74 +15,56 @@ angular.module('starter').directive('pxSideMenu', function () {
 });
 
 
-var menuGroups = {};
-menuGroups['promiseMenu'] = getPromiseMenu();
-menuGroups['profileMenu'] = getProfileMenu();
-menuGroups['contactsMenu'] = getContactsMenu();
+function SideMenu ($scope, $rootScope, $state, $ionicModal, $ionicSideMenuDelegate, $timeout) {
 
-function SideMenu ($scope, $rootScope, $ionicModal, $ionicSideMenuDelegate, $timeout) {
+  SideMenu = this;
+  SideMenu.isSideMenuEnabled=true;
 
-  this.isSideMenuEnabled=true;
-
-  this.data = {
+  SideMenu.data = {
     menuItems: [
-      {"id":"0", "label":"Login", "modal":"<px-login-modal></px-login-modal>"},
-      {"id":"1", "label":" Contacts", "modal":"<px-contacts-modal></px-contacts-modal>"},
-      {"id":"2", "label":"Areas", "modal":"<px-areas-modal></px-areas-modal>"}
+      {"id":"0", "label": "Login", "type":"state", "dest":"login"},
+      {"id":"1", "label":"Areas", "type":"modal", "dest":"<px-areas-modal></px-areas-modal>"},
+      {"id":"2", "label":"Completed Promises", "type":"state", "dest":"tab.promiselist"},
+      {"id":"3", "label":"Send Invites", "type":"modal", "dest":"<px-contacts-modal></px-contacts-modal>"},
+      {"id":"4", "label":"Walkthrough",  "type":"modal", "dest":"<px-showcase-modal></px-showcase-modal>"},
+      {"id":"5", "label":"Contact Us","type":"modal", "dest":"<px-contactus-modal></px-contactus-modal>"}
     ]
   };
 
-  vm = this;
   $rootScope.$on('rootScope:broadcast:sideMenu', function (event, menuName) {
      console.log("New Submenu required =" + menuName); // 'Broadcast!'
-
-     /*
-     console.log(menuGroups[menuName]);
-
-     // using 'vm' instead of 'this' (later wont work)
-     vm.data = {
-       menuItems: menuGroups[menuName]
-     };
-     */
-
+     if ( menuName=='loggedIn') {
+       SideMenu.data.menuItems[0] =   {"id":"0", "label": "Logout", "type":"state", "dest":"login"};
+       return;
+     }
+     if ( menuName=='loggedOut') {
+       SideMenu.data.menuItems[0] =   {"id":"0", "label": "Login", "type":"state", "dest":"login"};
+       return;
+     }
   });
 
-
-  this.openModal = function (modal) {
-    console.log("open modal : " + modal);
-    $rootScope.modal = $ionicModal.fromTemplate(modal);
-    $rootScope.modal.show();
+  // dest may be a directive or a 'state'
+  SideMenu.openModal = function (item) {
+    if ( item.type =="modal" ) {
+      console.log("open modal : " + item.dest);
+      $rootScope.modal = $ionicModal.fromTemplate(item.dest);
+      $rootScope.modal.show();
+    } else {
+      console.log("$state.go = ", item.dest);
+      $state.go(item.dest);
+    }
   };
+
+  // modal directives end with 'modal'. eg <px-area-modal></px-area-modal>
+  function isModal(dest) {
+    if (dest.indexOf("modal")) {
+      return true;
+    } else {
+      return false;
+    }  }
 
   function closeSideMenu() {
        $ionicSideMenuDelegate.$getByHandle("sidemenuHandle").toggleLeft(false);
   }
 
-}
-
-
-//--------- Menu Links ----------
-
-function getPromiseMenu() {
-  return  [
-      {"id":0, "label":"Promise Menu Item!!", "url":"#/login"},
-      {"id":1, "label":"Hoot Hoot", "url":"#/promiselist"},
-      {"id":4, "label":"Contacts", "url":"#/tab/contacts"}
-    ];
-}
-
-function getProfileMenu() {
-  return [
-      {"id":0, "label":"Profile", "url":"#/tab/profile"},
-      {"id":1, "label":"Showcase", "url":"#/tab/showcase"},
-      {"id":1, "label":"Sync Contacts", "url":"#/tab/contacts"}
-    ];
-}
-
-function getContactsMenu() {
-  return [
-      {"id":0, "label":"...back to Profile", "url":"#/tab/profile"},
-      {"id":2, "label":"Send Invites", "url":"#/tab/contacts"},
-      {"id":1, "label":"Hoot Hoot", "url":"#/promiselist"},
-    ];
 }

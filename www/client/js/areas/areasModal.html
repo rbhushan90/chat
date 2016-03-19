@@ -6,5 +6,9 @@
      </div>
    </ion-header-bar>
 
-   <px-areas></px-areas>
+   <ion-list>
+     <ion-item ng-repeat="item in Areas.list">
+       {{item.name}}
+     </ion-item>
+   </ion-list>
  </ion-modal-view>

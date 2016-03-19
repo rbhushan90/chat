@@ -27,34 +27,28 @@ function Promise($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicHi
     //console.log("promise id = " + Promise.promiseId);
   });
 
-  this.logEventListener = function() {
+  Promise.logEventListener = function() {
     ChatFactory.logEventListeners();
   }
 
-  this.showActions = function() {
+  Promise.showActions = function() {
     showPromiseActionSheet($rootScope, $ionicActionSheet);
   }
 
-  this.backToList = function() {
-    $state.go("tab.promiselist");
-  }
+  Promise.openChat = function () {
+      console.log("open chat promiseId=" + Promise.promiseId);
 
-  this.openChatModal = function () {
-      console.log("open chat modal promiseId=" + Promise.promiseId);
-
-      $state.go('tab.chat', {'promiseId':Promise.promiseId});
+    //  $state.go('tab.chat', {'promiseId':Promise.promiseId});
+    $state.go('chat', {'promiseId':Promise.promiseId});
   };
 
-  this.openShareModal = function () {
-    console.log("open modal");
-
+  Promise.openShare = function () {
     modal = "<px-share-modal promise-id='" + Promise.promiseId + "'></px-share-modal>";
     $rootScope.modal = $ionicModal.fromTemplate(modal);
     $rootScope.modal.show();
   };
 
-  this.openInvitesModal = function () {
-      console.log("open invites modal");
+  Promise.openInvitesModal = function () {
 
       modal = "<px-invites-modal></px-invites-modal>";
       $rootScope.modal = $ionicModal.fromTemplate(modal, {"modalId":"INVITES"});

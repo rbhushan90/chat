@@ -23,9 +23,4 @@ function PromiseHome($scope, $rootScope, $state, $ionicModal, $ionicActionSheet)
   };
 
 
-  this.comingSoon = function() {
-      $rootScope.modal = $ionicModal.fromTemplate("<px-test-modal></px-test-modal>");
-      $rootScope.modal.show();
-  };
-
 }

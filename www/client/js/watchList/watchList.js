@@ -16,10 +16,10 @@ function WatchList($scope, $rootScope) {
     items: []
   };
 
-  for (var i = 0; i < 8; i++) {
+  for (var i = 1; i < 5; i++) {
     this.data.items.push({
       id: i,
-      label: "Watch Item " + i
+      label: "Watching Item " + i
     })
   }
 }

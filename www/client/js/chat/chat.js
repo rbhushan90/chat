@@ -125,17 +125,18 @@ function Chat($scope, $rootScope, $stateParams, $state, $window,
       ChatFactory.logEventListeners();
     }
 
-  function initChatHeight() {
-    // window height : http://www.gajotres.net/ionic-framework-get-page-height-width/
-    //Chat.dev_width = $window.innerWidth;
-    //Chat.dev_height = $window.innerHeight;
 
-    chatbox_height = $window.innerHeight - 100;  // minus the Tab bar and the 'send message' bar
-    chatbox_height_style = "height:" + chatbox_height + "px";
+      function initChatHeight() {
+        // window height : http://www.gajotres.net/ionic-framework-get-page-height-width/
+        //Chat.dev_width = $window.innerWidth;
+        //Chat.dev_height = $window.innerHeight;
 
-    console.log("initChatHeight() Calculated chat height=", chatbox_height_style);
-    document.getElementById('myChatList').style = chatbox_height_style;
-  }
+        chatbox_height = $window.innerHeight - 45 - 44;  // minus the Header and 'Send Message' bar
+        chatbox_height_style = "height:" + chatbox_height + "px";
+
+        console.log("Calculated chat height=", chatbox_height_style);
+        document.getElementById('myList').style = chatbox_height_style;
+      }
 
 
   function newMessageReceivedCallback(roomId, message) {
@@ -162,7 +163,7 @@ function Chat($scope, $rootScope, $stateParams, $state, $window,
       Chat.adapter.append([message]); // pass in an Array !
 
       $timeout(function() {
-        document.getElementById('myChatList').scrollTop += 200; //pixels. scroll to bottom
+        document.getElementById('myList').scrollTop += 200; //pixels. scroll to bottom
       }, 10);
     }
   }

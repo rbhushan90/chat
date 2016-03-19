@@ -16,7 +16,7 @@ angular.module('starter')
   .state('tab.watchlist', {
     url: '/watchlist',
     views: {
-      'tab-promise': {
+      'tab-watch': {
         template: '<px-watch-list></px-watch-list>'
       }
     }
@@ -50,7 +50,7 @@ angular.module('starter')
     }
 
   })
-
+/*
   .state('tab.chat', {
     url: '/chat/:promiseId',
     views: {
@@ -58,15 +58,24 @@ angular.module('starter')
         template: '<px-chat></px-chat>'
       }
     }
-
   })
+*/
+
+    .state('chat', {
+      url: '/chat/:promiseId',
+      views: {
+        'mainContent': {
+          template: '<px-chat></px-chat>'
+        }
+      }
+    })
 
 
-  .state('tab.profile', {
-    url: '/profile',
+  .state('tab.integritometer', {
+    url: '/integritometer',
     views: {
-      'tab-profile': {
-          template: '<px-profile></px-profile>'
+      'tab-integritometer': {
+          template: '<px-integritometer></px-integritometer>'
       }
     }
   })
@@ -75,7 +84,7 @@ angular.module('starter')
   .state('tab.contacts', {
     url: '/contacts',
     views: {
-      'tab-profile': {
+      'tab-integritometer': {
           template: '<px-contacts></px-contacts>'
       }
     }
@@ -84,7 +93,7 @@ angular.module('starter')
   .state('tab.share', {
     url: '/share',
     views: {
-      'tab-profile': {
+      'tab-integritometer': {
           template: '<px-share></px-share>'
       }
     }
@@ -93,7 +102,7 @@ angular.module('starter')
   .state('tab.areas', {
     url: '/areas',
     views: {
-      'tab-profile': {
+      'tab-integritometer': {
           template: '<px-areas></px-areas>'
       }
     }
@@ -102,7 +111,7 @@ angular.module('starter')
   .state('tab.showcase', {
     url: '/showcase',
     views: {
-      'tab-profile': {
+      'tab-integritometer': {
           template: '<px-showcase></px-showcase>'
       }
     }
@@ -139,5 +148,5 @@ angular.module('starter')
     })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/promisehome');
+  $urlRouterProvider.otherwise('/tab/promiselist');
 });

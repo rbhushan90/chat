@@ -1,14 +1,19 @@
 
 <ion-tabs  px-clear-tab-history class="tabs-positive tabs-icon-top" ng-cloak delegate-handle="tabsHandle">
 
-  <ion-tab  title="Profile" icon-on="ion-ios-speedometer" icon-off="ion-ios-speedometer-outline"
-     on-deselect="Tab.clearHistory()" href="#/tab/profile">
-    <ion-nav-view name="tab-profile"></ion-nav-view>
+  <ion-tab  title="Integritometer" icon-on="ion-ios-speedometer" icon-off="ion-ios-speedometer-outline"
+     on-deselect="Tab.clearHistory()" href="#/tab/integritometer">
+    <ion-nav-view name="tab-integritometer"></ion-nav-view>
   </ion-tab>
 
-  <ion-tab  title="Promise" icon-on="ion-ios-person" icon-off="ion-ios-person-outline"
+  <ion-tab  title="My Promises" icon-on="ion-ios-person" icon-off="ion-ios-person-outline"
     on-deselect="Tab.clearHistory()" href="#/tab/promiselist">
     <ion-nav-view name="tab-promise"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab  title="Promises Watching" icon-on="ion-ios-glasses" icon-off="ion-ios-glasses-outline"
+    on-deselect="Tab.clearHistory()" href="#/tab/watchlist">
+    <ion-nav-view name="tab-watch"></ion-nav-view>
   </ion-tab>
 
   <ion-tab  title="Notifications" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong"
