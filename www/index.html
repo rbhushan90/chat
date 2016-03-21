@@ -4,15 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src &apos;self&apos; &apos;unsafe-inline&apos;; script-src * &apos;unsafe-inline&apos; &apos;unsafe-eval&apos;">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src &apos;self&apos; &apos;unsafe-inline&apos;; script-src * &apos;unsafe-inline&apos; &apos;unsafe-eval&apos;">
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="lib/ionic-tinder-cards-2/ionic.tdcards2.css" rel="stylesheet">
-    <link href="client/css/style.css" rel="stylesheet">
     <link href="client/css/fix_tdcards.css" rel="stylesheet">
-    <link href="client/css/animate.css" rel="stylesheet">
-    <link rel="stylesheet" href="lib/angular-chart.js/dist/angular-chart.css">
-    <link rel="stylesheet" href="client/css/chat-detail.css">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -27,8 +23,11 @@
     <!-- your app's js -->
     <script src="lib/Chart.js/Chart.min.js"></script>
     <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
-    <script src="lib/ionic-tinder-cards-2/ionic.tdcards2.js"></script>
-    <script src="lib/collide/collide.js"></script>
+
+  <link href="client/css/style.css" rel="stylesheet">
+  <link href="client/css/animate.css" rel="stylesheet">
+  <link rel="stylesheet" href="lib/angular-chart.js/dist/angular-chart.css">
+  <link rel="stylesheet" href="client/css/chat-detail.css">
 
     <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
@@ -36,6 +35,11 @@
     <script src="lib/angular-ui-scroll/dist/ui-scroll.js"></script>
     <script src="lib/angular-ui-scroll/dist/ui-scroll-jqlite.js"></script>
     <script src="lib/firechat/dist/firechat_ssedit.js"></script>
+
+
+    <script src="lib/collide/collide.js"></script>
+    <script src="lib/ionic-tinder-cards-2/ionic.tdcards2.js"></script>
+
 
     <!-- JQuery is needed by Firechat but it CLASHES with JQLITE.js that is used by ui-scroll !!!!!
   <script src="lib/jquery/dist/jquery.min.js"></script>

@@ -150,12 +150,6 @@ function Chat($scope, $rootScope, $stateParams, $state, $window,
     }
 
     usersCurrentRoom = Chat.roomId;
-    console.log("[NEW MESSAGE] User's current room:" + usersCurrentRoom + "  message for room:" + roomId);
-
-    if (usersCurrentRoom != roomId) {
-      console.log("NOT for this room, new message,  roomId=" + roomId + " msg=", message);
-      return;
-    }
 
     var userId = message.userId;
     if (!this._user || !this._user.muted || !this._user.muted[userId]) {
@@ -163,7 +157,7 @@ function Chat($scope, $rootScope, $stateParams, $state, $window,
       Chat.adapter.append([message]); // pass in an Array !
 
       $timeout(function() {
-        document.getElementById('myList').scrollTop += 200; //pixels. scroll to bottom
+        document.getElementById('myList').scrollTop += 300; //pixels. scroll to bottom
       }, 10);
     }
   }
