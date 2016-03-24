@@ -1,11 +1,11 @@
 <ion-side-menu side="right" is-enabled="{{SideMenu.isSideMenuEnabled}}" delegate-handle="sidemenuHandle">
-  <ion-header-bar class="bar-calm">
-    <h1 class="title">Settings</h1>
+  <ion-header-bar class="expanded">
+    <span class="avatar" style="background: url('img/ben.png'); background-size: cover;"></span>
+    <h2 class="silver">Robert de Niro</h2>
   </ion-header-bar>
-  <ion-content>
+  <ion-content class="has-expanded-header">
     <ion-list>
-
-      <ion-item menu-close ng-repeat="item in SideMenu.data.menuItems" ng-click="SideMenu.openModal(item)">
+      <ion-item menu-close ng-repeat="item in SideMenu.data.menuItems" ng-click="SideMenu.openModal(item)" class="orange">
          {{item.label}}
       </ion-item>
     </ion-list>

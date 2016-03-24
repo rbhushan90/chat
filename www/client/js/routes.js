@@ -1,5 +1,6 @@
 angular.module('starter')
 .config(function($stateProvider, $urlRouterProvider) {
+
   $stateProvider
 
   .state('tab', {
@@ -10,7 +11,6 @@ angular.module('starter')
        templateUrl: 'client/js/tabs/tabs.html'
      }
    }
-
   })
 
   .state('tab.watchlist', {
@@ -19,7 +19,8 @@ angular.module('starter')
       'tab-watch': {
         template: '<px-watch-list></px-watch-list>'
       }
-    }
+    },
+    authenticate: true
   })
 
   .state('tab.promisehome', {
@@ -28,7 +29,8 @@ angular.module('starter')
       'tab-promise': {
         template: '<px-promise-home></px-promise-home>'
       }
-    }
+    },
+    authenticate: true
 
   })
 
@@ -38,7 +40,8 @@ angular.module('starter')
       'tab-promise': {
         template: '<px-promise-list></px-promise-list>'
       }
-    }
+    },
+    authenticate: true
   })
 
   .state('tab.promise', {
@@ -47,8 +50,8 @@ angular.module('starter')
       'tab-promise': {
         template: '<px-promise></px-promise>'
       }
-    }
-
+    },
+    authenticate: true
   })
 /*
   .state('tab.chat', {
@@ -67,7 +70,8 @@ angular.module('starter')
         'mainContent': {
           template: '<px-chat></px-chat>'
         }
-      }
+      },
+      authenticate: true
     })
 
 
@@ -77,7 +81,8 @@ angular.module('starter')
       'tab-integritometer': {
           template: '<px-integritometer></px-integritometer>'
       }
-    }
+    },
+    authenticate: true
   })
 
 
@@ -87,17 +92,10 @@ angular.module('starter')
       'tab-integritometer': {
           template: '<px-contacts></px-contacts>'
       }
-    }
+    },
+    authenticate: true
   })
 
-  .state('tab.share', {
-    url: '/share',
-    views: {
-      'tab-integritometer': {
-          template: '<px-share></px-share>'
-      }
-    }
-  })
 
   .state('tab.areas', {
     url: '/areas',
@@ -105,7 +103,8 @@ angular.module('starter')
       'tab-integritometer': {
           template: '<px-areas></px-areas>'
       }
-    }
+    },
+    authenticate: true
   })
 
   .state('tab.showcase', {
@@ -114,7 +113,8 @@ angular.module('starter')
       'tab-integritometer': {
           template: '<px-showcase></px-showcase>'
       }
-    }
+    },
+    authenticate: false
   })
 
 
@@ -125,7 +125,8 @@ angular.module('starter')
       'tab-tinder': {
         template: '<px-tinder></px-tinder>'
       }
-    }
+    },
+    authenticate: true
   })
 
   .state('tab.notifications', {
@@ -134,7 +135,8 @@ angular.module('starter')
       'tab-tinder': {
         template: '<px-notifications></px-notifications>'
       }
-    }
+    },
+    authenticate: true
   })
 
 
@@ -144,7 +146,8 @@ angular.module('starter')
         'mainContent': {
           template: '<px-login></px-login>'
         }
-      }
+      },
+      authenticate: false
     })
 
   // if none of the above states are matched, use this as the fallback

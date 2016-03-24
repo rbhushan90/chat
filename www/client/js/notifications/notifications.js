@@ -23,7 +23,7 @@ angular.module('starter').directive('pxNotificationsModal', function () {
 });
 
 
-function Notifications($scope, $rootScope, $ionicModal) {
+function Notifications($scope, $rootScope, $ionicModal,$ionicHistory) {
   console.log("Notifications ctrl");
 
   var list = [
@@ -33,9 +33,15 @@ function Notifications($scope, $rootScope, $ionicModal) {
     { name: 'Simon Brown sent you a Promise'},
   ];
 
-  this.list = list;
+  Notifications = this;
+  Notifications.list = list;
 
-  this.hideModal = function () {
+  Notifications.hideModal = function () {
       $rootScope.modal.hide();
   };
+
+  $scope.$on( "$ionicView.enter", function( scopes, states ) {
+    console.log("ionic view enter");
+     $ionicHistory.clearHistory();
+  });
 }

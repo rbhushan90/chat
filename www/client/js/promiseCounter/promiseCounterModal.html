@@ -1,0 +1,48 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title"></h1>
+    <div class="buttons">
+      <button class="button button-clear button-positive" ng-click="PromiseCounter.hideModal()">Done</button>
+    </div>
+  </ion-header-bar>
+  <ion-view title="Share">
+
+    <ion-content>
+      <div class="card">
+        <div class="item item-divider bg-maroon aqua">
+          Counter Offer
+        </div>
+        <div class="item item-avatar item-text-wrap">
+          <img ng-src="img/ben.png">
+          <h2>John James </h2>
+          <p>I promise to complete the London Marathon in under 3 hours</p>
+        </div>
+
+
+          <form>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Reward</span>
+              <input type="text" placeholder="What will the reward be?">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Forfeit</span>
+              <input type="text" placeholder="and the forfeit?">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Due Date</span>
+              <input type="date">
+            </label>
+            <label class="item">
+              <button class="button button-block button-energized" ng-click="PromiseCounter.save()">Counter</button>
+            </label>
+          </form>
+         
+      </div>
+
+
+
+
+     </ion-content>
+   </ion-view>
+
+ </ion-modal-view>

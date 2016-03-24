@@ -126,7 +126,7 @@ function Chat($scope, $rootScope, $stateParams, $state, $window,
     }
 
 
-      function initChatHeight() {
+    function initChatHeight() {
         // window height : http://www.gajotres.net/ionic-framework-get-page-height-width/
         //Chat.dev_width = $window.innerWidth;
         //Chat.dev_height = $window.innerHeight;
@@ -136,7 +136,7 @@ function Chat($scope, $rootScope, $stateParams, $state, $window,
 
         console.log("Calculated chat height=", chatbox_height_style);
         document.getElementById('myList').style = chatbox_height_style;
-      }
+    }
 
 
   function newMessageReceivedCallback(roomId, message) {

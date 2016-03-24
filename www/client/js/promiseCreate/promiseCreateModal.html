@@ -1,0 +1,83 @@
+<ion-modal-view>
+   <ion-header-bar>
+    <h1 class="title">Create New Promise</h1>
+     <div class="buttons">
+       <button class="button button-clear button-positive" ng-click="PromiseCreate.hideModal()">Done</button>
+     </div>
+   </ion-header-bar>
+   <ion-view title="Create New Promise">
+
+     <ion-content>
+
+       <form>
+         <label class="item item-input item-stacked-label">
+         <input type="text" placeholder="Describe the Promise">
+       </label>
+       <label class="item item-input item-stacked-label">
+         <span class="input-label">Reward</span>
+         <input type="text" placeholder="What will the reward be?">
+       </label>
+       <label class="item item-input item-stacked-label">
+         <span class="input-label">Forfeit</span>
+         <input type="text" placeholder="and the forfeit?">
+       </label>
+       <label class="item item-input">
+         <span class="input-label">Due Date</span>
+         <input type="date">
+       </label>
+       <label class="item item-input">
+         <span class="input-label">Time</span>
+         <input type="time">
+       </label>
+       <label class="item item-input item-select item-stacked-label">
+         <span class="input-label">Area</span>
+         <select>
+           <option>Career</option>
+           <option selected>Health</option>
+           <option>Finances</option>
+           <option>Family</option>
+           <option>Friends</option>
+           <option>Leisure</option>
+           <option>Love</option>
+           <option>Misc</option>
+         </select>
+       </label>
+       <label class="item item-input item-select item-stacked-label">
+         <span class="input-label">Status</span>
+         <select>
+           <option selected>Pending</option>
+           <option>Revoked</option>
+           <option>In-Progress</option>
+           <option>Done</option>
+           <option>Overdue</option>
+           <option>Completed</option>
+         </select>
+       </label>
+       <label class="item item-input item-select item-stacked-label">
+         <span class="input-label">Value</span>
+         <select>
+           <option selected>Good Stuff</option>
+           <option>Ermm..</option>
+           <option>Waking Up</option>
+           <option>Routine</option>
+         </select>
+       </label>
+       <label class="item item-input item-select item-stacked-label">
+         <span class="input-label">Sharable?</span> <!-- allow Friends to share this Promise on Social Media ? -->
+         <select>
+           <option selected>Yes</option>
+           <option>No</option>
+         </select>
+       </label>
+
+       <label class="item">
+          <button class="button button-block  button-energized" ng-click="PromiseCreate.save()">Save</button>
+       </label>
+
+
+       </form>
+
+     </ion-content>
+   </ion-view>
+
+ </ion-modal-view>

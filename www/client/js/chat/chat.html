@@ -1,3 +1,5 @@
+<!-- Credit : Ross Martin, http://codepen.io/rossmartin/pen/XJmpQr -->
+
 <ion-view title="Chat">
 
   <ion-content class="has-header" padding="true">
@@ -5,7 +7,7 @@
   <div id="myList" ui-scroll-viewport style="height:200px">
     <div ui-scroll="item in Chat.datasource" adapter="Chat.adapter" is-loading="loading" buffer-size='50' class="message-wrapper">
       <img class="profile-pic" ng-src="img/adam.jpg" ng-class="item.name == 'See-See Leong' ?  'left' : 'right'">
-      <div class="message-detail chat-bubble" ng-class="item.name == 'See-See Leong' ?  'left' : 'right'">
+      <div class="message chat-bubble" ng-class="item.name == 'See-See Leong' ?  'left' : 'right'">
         {{item.seqId}} {{item.name}} : {{item.message}}
       </div>
       <div class="cf"></div> <!--clear both-->
@@ -24,14 +26,3 @@
   <button ng-click="Chat.sendMessage()" class="button button-clear button-positive">Send</button>
 </div>
 </ion-view>
-
-<!--
-     <ion-list>
-       <ion-item>Invites</ion-item>
-       <ion-item ng-repeat="invite in Chat.invitations">
-         {{invite.toRoomName}}  {{invite.fromUserName}}
-         <ion-option-button ng-click="Chat.acceptInvite(invite)" class="button-positive">Accept</ion-option-button>
-         <ion-option-button ng-click="Chat.declineInvite(invite)" class="button-positive">Decline</ion-option-button>
-       </ion-item>
-     </ion-list>
--->

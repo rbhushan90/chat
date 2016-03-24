@@ -6,13 +6,17 @@
     <title></title>
     <meta http-equiv="Content-Security-Policy" content="default-src *; style-src &apos;self&apos; &apos;unsafe-inline&apos;; script-src * &apos;unsafe-inline&apos; &apos;unsafe-eval&apos;">
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <!-- IF using Sass -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="client/css/local.css" rel="stylesheet">
+
+    <link href="client/css/animate.css" rel="stylesheet">
+    <link href="client/css/colors.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="client/css/chat-detail.css">
+
     <link href="lib/ionic-tinder-cards-2/ionic.tdcards2.css" rel="stylesheet">
     <link href="client/css/fix_tdcards.css" rel="stylesheet">
-
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -24,10 +28,6 @@
     <script src="lib/Chart.js/Chart.min.js"></script>
     <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
 
-  <link href="client/css/style.css" rel="stylesheet">
-  <link href="client/css/animate.css" rel="stylesheet">
-  <link rel="stylesheet" href="lib/angular-chart.js/dist/angular-chart.css">
-  <link rel="stylesheet" href="client/css/chat-detail.css">
 
     <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
@@ -54,8 +54,11 @@
     <script src="client/js/tabs/tabs.js"></script>
     <script src="client/js/areas/areas.js"></script>
     <script src="client/js/promise/promise.js"></script>
+    <script src="client/js/promiseCreate/promiseCreate.js"></script>
+    <script src="client/js/promiseDone/promiseDone.js"></script>
+    <script src="client/js/promiseNotDone/promiseNotDone.js"></script>
+    <script src="client/js/promiseCounter/promiseCounter.js"></script>
     <script src="client/js/promiseList/promiseList.js"></script>
-    <script src="client/js/promiseHome/promiseHome.js"></script>
     <script src="client/js/promise/promiseActionSheet.js"></script>
     <script src="client/js/watchList/watchList.js"></script>
     <script src="client/js/profile/profile.js"></script>
@@ -66,7 +69,7 @@
     <script src="client/js/testModal/testModal.js"></script>
     <script src="client/js/tinder/tinder.js"></script>
     <script src="client/js/showcase/showcase.js"></script>
-    <script src="client/js/share/share.js"></script>
+    <script src="client/js/tag/tag.js"></script>
     <script src="client/js/integritometer/integritometer.js"></script>
     <script src="client/js/counteroffer/counteroffer.js"></script>
     <script src="client/js/chat/chat_factory.js"></script>

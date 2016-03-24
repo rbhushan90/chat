@@ -1,0 +1,32 @@
+<ion-modal-view>
+   <ion-header-bar>
+    <h1 class="title">{{Tag.title}}</h1>
+     <div class="buttons">
+       <button class="button button-clear button-positive" ng-click="Tag.hideModal()">Done</button>
+     </div>
+   </ion-header-bar>
+   <ion-view title="Tag">
+     <ion-content>
+       <!--
+       <ion-item>
+          <button ng-click="Tag.createPrivateRoom()" class="button button-clear button-positive">Create Private Room</button>
+       </ion-item>
+     -->
+       <ion-list>
+         <ion-checkbox ng-repeat="item in Tag.list">
+           <div class="item item-avatar">
+             <img ng-src="{{item.image}}">
+             <h2>{{item.name}}</h2>
+             <p>{{item.tagline}}</p>
+           </div>
+         </ion-checkbox>
+       </ion-list>
+
+       <label class="item">
+         <button class="button button-block button-energized" ng-click="Tag.sendInvite()">Tag</button>
+       </label>
+
+     </ion-content>
+   </ion-view>
+
+ </ion-modal-view>

@@ -1,14 +1,3 @@
-angular.module('starter').directive('pxAreas', function () {
-  console.log("areas directive");
-  return {
-    restrict: 'E',
-    templateUrl: function() {
-        return 'client/js/areas/areas.html';
-    },
-    controllerAs: 'Areas',
-    controller: Areas
-  }
-});
 // open in Modal mode
 angular.module('starter').directive('pxAreasModal', function () {
   console.log("areasModal directive");

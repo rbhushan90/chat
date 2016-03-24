@@ -1,14 +1,27 @@
 <ion-view title="Watching">
 
-  <ion-content>
+  <ion-content class="has-header myPromiseList bg-blue">
     <ion-list>
-      <ion-item ng-repeat="item in WatchList.data.items" href="#/tab/promise/{{item.id}}"
-            class="item-remove-animate item-icon-right item-text-wrap">
-        {{item.label}}
+      <ion-item ng-repeat="item in WatchList.list" ng-click="WatchList.openTinder(item)"
+            class="item-text-wrap white">
+        <img class="round-profile-photo" style="float:left" ng-src="{{item.image}}">
+        <div style="float:left;padding-left:10px;padding-top:10px;">{{item.title}}</div>
+        <div style="clear:both"></div>
+        <div class="yellow" style="float:left;padding-top:5px">Due {{item.dueDate}}</div>
+        <div class="aqua" style="float:right">{{item.area}}</div>
+        <div style="clear:both"></div>
+        <div class="yellow" style="float:left">{{item.status}}</div>
+        <div class="aqua" style="float:right">Value {{item.value}}</div>
+        <div style="clear:both"></div>
+
         <ion-option-button class="button-calm">Chat</ion-option-button>
-        <i class="icon ion-chevron-right icon-accessory pull-right"></i>
+        <ion-option-button class="button-positive" ng-if="item.status=='Pending Acknowledgement'"  ng-click="WatchList.ackComplete(item)">Ack</ion-option-button>
+
       </ion-item>
     </ion-list>
 
   </ion-content>
+
+
+
 </ion-view>

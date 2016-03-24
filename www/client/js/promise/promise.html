@@ -3,87 +3,8 @@
   <ion-content class="has-header">
 
     <div class="list">
-
-      <form>
-        <label class="item item-input item-stacked-label">
-        <span class="input-label">Title</span>
-        <input type="text" placeholder="Describe your Promise">
-      </label>
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Reward</span>
-        <input type="text" placeholder="What will the reward be?">
-      </label>
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Forfeit</span>
-        <input type="text" placeholder="and the forfeit?">
-      </label>
-      <label class="item item-input">
-        <span class="input-label">Due Date</span>
-        <input type="date">
-      </label>
-      <label class="item item-input">
-        <span class="input-label">Time</span>
-        <input type="time">
-      </label>
-      <label class="item item-input item-select item-stacked-label">
-        <span class="input-label">Area</span>
-        <select>
-          <option>Career</option>
-          <option selected>Health</option>
-          <option>Finances</option>
-          <option>Family</option>
-          <option>Friends</option>
-          <option>Leisure</option>
-          <option>Love</option>
-          <option>Misc</option>
-        </select>
-      </label>
-      <label class="item item-input item-select item-stacked-label">
-        <span class="input-label">Status</span>
-        <select>
-          <option selected>Pending</option>
-          <option>Revoked</option>
-          <option>In-Progress</option>
-          <option>Done</option>
-          <option>Not Done</option>
-          <option>Completed</option>
-        </select>
-      </label>
-      <label class="item item-input item-select item-stacked-label">
-        <span class="input-label">Value</span>
-        <select>
-          <option selected>Good Stuff</option>
-          <option>Ermm..</option>
-          <option>Waking Up</option>
-          <option>Routine</option>
-        </select>
-      </label>
-      <label class="item item-input item-select item-stacked-label">
-        <span class="input-label">Sharable?</span> <!-- allow Friends to share this Promise on Social Media ? -->
-        <select>
-          <option selected>Yes</option>
-          <option>No</option>
-        </select>
-      </label>
-
-      <!-- Enable Counter-offer if Promise is shared with only 1 person. -->
-
-        <div class="button-bar">
-          <a ng-click="Promise.openShare()" class="button button-small button-outline button-calm icon-left ion-share">Share</a>
-          <a ng-click="Promise.openChat()" class="button button-small button-outline button-calm icon-left ion-ios-chatboxes">Chat</a>
-        </div>
-
-      <label class="item">
-
-        <img class="round-profile-photo" ng-src="img/max.png">
-        <img class="round-profile-photo" ng-src="img/ben.png">
-        <img class="round-profile-photo" ng-src="img/perry.png">
-      </label>
-      <label class="item">
-        <button class="button button-block button-energized" ng-click="Promise.showActions()">Actions</button>
-      </label>
-
-      </form>
+      <ng-include  src="'client/js/promise/promise_form.html'">
+      </ng-include>
     </div>
 
 

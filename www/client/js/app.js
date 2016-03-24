@@ -15,7 +15,19 @@ angular.module('starter',
 'ui.scroll.jqlite'
 ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $state, FirebaseAuth) {
+
+
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    console.log("toState = ", toState);
+    if (toState.authenticate && !FirebaseAuth.isAuthenticated()){
+    // User isn’t authenticated
+      console.log("User not logged in.... redirect to login page");
+      $state.transitionTo("login");
+      event.preventDefault();
+    }
+  });
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -28,6 +40,8 @@ angular.module('starter',
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+
   });
 })
 
@@ -43,6 +57,5 @@ else {
 angular.element(document).ready(onReady);
 
 function onReady() {
-  console.log("In onReady()");
   angular.bootstrap(document, ['starter']);
 }

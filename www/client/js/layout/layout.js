@@ -21,7 +21,7 @@ function Layout($scope, $rootScope, $state, $ionicHistory, $ionicModal, Firebase
 
   Layout.show = function() {
     //console.log("back=", $ionicHistory.backView() );
-    if ( $ionicHistory.backView() != null ) {
+    if ( $ionicHistory.backView() != null && Layout.isLoggedIn() ) {
       //console.log("has back");
       return true;
     }
@@ -30,8 +30,10 @@ function Layout($scope, $rootScope, $state, $ionicHistory, $ionicModal, Firebase
 
 
   Layout.createPromise = function () {
-    console.log("create promise");
-      $state.go('tab.promise', {'promiseId':1});
+    console.log("in Layout.js  - create promise");
+      modal = "<px-promise-create-modal></px-promise-create-modal>";
+      $rootScope.modal = $ionicModal.fromTemplate(modal);
+      $rootScope.modal.show();
   };
 
   Layout.contacts = function () {

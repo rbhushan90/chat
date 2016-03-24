@@ -1,15 +1,25 @@
 <ion-view title="My Promises">
-  <ion-content class="has-header">
+  <ion-content class="has-header myPromiseList bg-orange">
 
     <ion-list>
-      <ion-item ng-repeat="item in PromiseList.data.items" href="#/tab/promise/{{item.id}}"
-            class="item-remove-animate item-icon-right item-text-wrap">
-        {{item.label}}
-        <ion-option-button class="button-positive">Share</ion-option-button>
-        <ion-option-button class="button-calm">Chat</ion-option-button>
-        <ion-option-button class="button-assertive">Revoke</ion-option-button>
-        <ion-option-button class="button-energized">Done</ion-option-button>
-        <i class="icon ion-chevron-right icon-accessory pull-right"></i>
+      <ion-item ng-repeat="item in PromiseList.list" href="#/tab/promise/{{item.id}}" class="item-text-wrap white">
+
+        <div class="yellow">{{item.title}}</div>
+        <div class="aqua" style="float:left;padding-top:5px">Due {{item.dueDate}}</div>
+        <div class="white" style="float:right">{{item.area}}</div>
+        <div style="clear:both"></div>
+        <div class="white" style="float:left">{{item.status}}</div>
+        <div class="white" style="float:right">Value {{item.value}}</div>
+        <div style="clear:both"></div>
+
+        <ion-option-button class="button-positive" ng-if="item.status=='Pending'"  ng-click="PromiseList.openShare(item)">Share</ion-option-button>
+        <ion-option-button class="button-royal" ng-if="item.status=='Pending'"  ng-click="PromiseList.openRequest(item)">Request</ion-option-button>
+        <ion-option-button class="button-calm" ng-click="PromiseList.openChat(item)">Chat</ion-option-button>
+        <ion-option-button class="button-assertive" ng-if="item.status=='Pending'" ng-click="PromiseList.revoke(item)">Revoke</ion-option-button>
+        <ion-option-button class="button-positive" ng-if="item.status=='Overdue'" ng-click="PromiseList.notDone(item)">Not Done</ion-option-button>
+        <ion-option-button class="button-energized" ng-if="item.status=='Enshrined'" ng-click="PromiseList.openDone(item)">Done</ion-option-button>
+        <ion-option-button class="button-positive" ng-if="item.status=='Acknowledged'" ng-click="PromiseList.complete(item)">Complete</ion-option-button>
+
       </ion-item>
     </ion-list>
 

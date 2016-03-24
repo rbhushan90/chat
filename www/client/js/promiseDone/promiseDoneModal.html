@@ -1,0 +1,50 @@
+<ion-modal-view>
+   <ion-header-bar>
+    <h1 class="title"></h1>
+     <div class="buttons">
+       <button class="button button-clear button-positive" ng-click="PromiseDone.hideModal()">Done</button>
+     </div>
+   </ion-header-bar>
+   <ion-view title="Share">
+
+     <ion-content class="bg-transparent bg-yellow">
+       <div class="card">
+        <div class="item item-divider bg-maroon aqua">
+          Promise Kept, Well Done !
+        </div>
+          <div class="item item-avatar item-text-wrap">
+            <img ng-src="img/ben.png">
+            <h2>John James </h2>
+            <p>I promise to complete the London Marathon in under 3 hours</p>
+          </div>
+        <div class="item item-text-wrap bg-aqua">
+          <span class="input-label">Reward</span>
+          <p>This is the reward. This is the reward</p>
+          <span class="input-label">Forfeit</span>
+          <p>This is the forfeit. This is the forfeit</p>
+          <span class="input-label">Due</span>
+          <p>3 Feb 2016</p>
+        </div>
+      </div>
+
+      <div class="list list-inset">
+        <form>
+          <div class="button-bar">
+            <button class="button button-icon icon ion-camera" ng-click="PromiseDone.takePhoto()"></button>
+            <button class="button button-icon icon ion-paperclip" ng-click="PromiseDone.choosePhoto()"></button>
+          </div>
+          <label class="item item-input item-stacked-label">
+            <input type="textarea" placeholder="Say something...">
+          </label>
+
+          <label class="item">
+            <button class="button button-block button-energized" ng-click="PromiseDone.save()">Confirm</button>
+          </label>
+        </form>
+      </div>
+
+
+     </ion-content>
+   </ion-view>
+
+ </ion-modal-view>

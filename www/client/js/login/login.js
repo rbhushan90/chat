@@ -14,7 +14,7 @@ angular.module('starter').directive('pxLogin', function () {
 
 
 // login with Firebase via Auth
-function Login ($scope, $rootScope, $state, $timeout, FirebaseAuth) {
+function Login ($scope, $rootScope, $state, $timeout, $ionicPopup, FirebaseAuth) {
   console.log("login controller");
 
   Login = this;
@@ -26,6 +26,7 @@ function Login ($scope, $rootScope, $state, $timeout, FirebaseAuth) {
   //  FirebaseAuth.getAuth().onAuth(onAuthCallback);
 
     // authorise with "facebook"
+
     FirebaseAuth.getAuth().authWithOAuthPopup("facebook", function(error, authData) {
       if (error) {
         console.log("Login Failed!", error);
@@ -45,6 +46,7 @@ function Login ($scope, $rootScope, $state, $timeout, FirebaseAuth) {
 
   Login.loginEmail = function() {
     console.log("login with Email");
+    Login.showAlert();
   };
 
   Login.logout = function() {
@@ -64,6 +66,7 @@ function Login ($scope, $rootScope, $state, $timeout, FirebaseAuth) {
 
   Login.register =function() {
     console.log("Register...");
+    Login.showAlert();
   }
 
   Login.isLoggedIn =function() {
@@ -74,6 +77,16 @@ function Login ($scope, $rootScope, $state, $timeout, FirebaseAuth) {
     return !FirebaseAuth.isAuthenticated();
   }
 
+  Login.showAlert = function() {
+     var alertPopup = $ionicPopup.alert({
+       title: 'Coming Soon',
+       template: 'Work in Progress'
+     });
+
+     alertPopup.then(function(res) {
+       console.log('popup shown');
+     });
+   };
 
   function handleError(err) {
     $log.error('login failed ', err);

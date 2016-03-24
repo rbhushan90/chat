@@ -1,13 +1,9 @@
-angular.module('starter').directive('pxTinderModal', function () {
+angular.module('starter').directive('pxTinder', function () {
   console.log("tinder directive");
   return {
     restrict: 'E',
-    scope: {},
-    bindToController: {
-      promiseId: "@"
-    },
     templateUrl: function() {
-        return 'client/js/tinder/tinderModal.html';
+        return 'client/js/tinder/tinder.html';
     },
     controllerAs: 'Tinder',
     controller: Tinder
@@ -15,17 +11,30 @@ angular.module('starter').directive('pxTinderModal', function () {
 });
 
 
-function Tinder($scope, $rootScope, TDCardDelegate, $timeout, $ionicSideMenuDelegate, $ionicHistory) {
+function Tinder($scope, TDCardDelegate, $timeout, $ionicSideMenuDelegate, $ionicHistory) {
+
 
       var cardTypes = [
         {
-  			  name: $rootScope.tinderItem.name,
-  			  image: $rootScope.tinderItem.image,
-          title : $rootScope.tinderItem.title,
-          dueDate : $rootScope.tinderItem.dueDate,
-          area : $rootScope.tinderItem.area,
-          status : $rootScope.tinderItem.status,
-          value : $rootScope.tinderItem.value,
+  			  name: 'Ben Smith',
+  			  image: 'img/ben.png',
+          description: 'Kayak around the Isle of Wight'
+  			},
+  			{
+  			  name: 'Adam Jones',
+  			  image: 'img/adam.jpg',
+          //image:'https://graph.facebook.com/101996786838334/picture?type=large',
+  			  description: 'Raise Money for Charity'
+  			},
+  			{
+  			  name: 'Max McMillian',
+  			  image: 'img/max.png',
+  			  description: 'Take Sabbathical to spend time with Mum'
+  			},
+  			{
+  			  name: 'Mike Sanders',
+  			  image: 'img/mike.png',
+  			  description: 'Start a Company'
   			}
       ];
 
@@ -74,22 +83,28 @@ function Tinder($scope, $rootScope, TDCardDelegate, $timeout, $ionicSideMenuDele
 
       Tinder.cardSwipedLeft = function(index) {
         console.log('LEFT SWIPE');
-        Tinder.hideModal();
         var card = Tinder.cards.active[index];
         Tinder.cards.disliked.push(card);
       };
-
       Tinder.cardSwipedRight = function(index) {
         console.log('RIGHT SWIPE');
-        Tinder.hideModal();
         var card = Tinder.cards.active[index];
         Tinder.cards.liked.push(card);
       };
 
-
-      Tinder.hideModal = function()  {
-        $rootScope.modal.hide();
+      Tinder.flip = function(card) {
+        console.log("Tinder flip");
+       Tinder.onOff =  !Tinder.onOff;
+       if  (Tinder.onOff) {
+         card.image = "img/note_paper.jpg";
+         card.name="In 2 Weeks";
+         card.description = "here is more information about my project. When you laugh with people, you show them that you like them, you agree with them, or that you are in same group as them";
+       } else {
+         card.image = "img/ben.png";
+         card.name="Ben Smith";
+         card.description = "Kayak around the Isle of Wight";
       }
+     }
 
 
 }
