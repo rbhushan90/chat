@@ -1,0 +1,55 @@
+<ion-modal-view>
+   <ion-header-bar>
+     <h1 class="title">Promise</h1>
+     <div class="buttons">
+       <button class="button button-clear button-positive" ng-click="Tinder.hideModal()">Close</button>
+     </div>
+   </ion-header-bar>
+   <ion-view>
+
+     <ion-content class="bg-black">
+       <div ng-if="Tinder.cards.active">
+         <p class="white padding" style="text-align: center">Swipe Left to decline, swipe right to accept</p>
+         <td-cards>
+           <td-card ng-repeat="item in Tinder.cards.active" on-destroy="Tinder.cardDestroyed($index)"
+             on-swipe-left="Tinder.cardSwipedLeft($index)" on-swipe-right="Tinder.cardSwipedRight($index)">
+
+             <div class="bg-blue">
+               <div class="no-text">Decline</div>
+               <div class="yes-text">Accept</i></div>
+
+               <img ng-src="{{ item.image }}" width="300px" height="300px">
+               <div class="padding">
+                 <h3 class="yellow">{{item.name}}</h3>
+                 <div class="yellow">{{item.title}}</div>
+                 <div class="aqua" style="float:left;padding-top:5px">Due {{item.dueDate}}</div>
+                 <div class="white" style="float:right">{{item.area}}</div>
+                 <div style="clear:both"></div>
+                 <div class="white" style="float:left">{{item.status}}</div>
+                 <div class="white" style="float:right">Value {{item.value}}</div>
+                 <div style="clear:both"></div>
+               </div>
+            </div>
+            <div class="list">
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Reward</span>
+                <input type="text" placeholder="This is the Reward. It is Editable">
+              </label>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Forfeit</span>
+                <input type="text" placeholder="This is the Forfeit. You can change this">
+              </label>
+              <button class="button button-block button-positive navy" ng-click="Tinder.counter({{Tinder.promiseId}})">Counter Offer</button>
+            </div>
+
+
+
+
+           </td-card>
+         </td-cards>
+       </div>
+
+
+     </ion-content>
+</ion-view>
+</ion-modal-view>

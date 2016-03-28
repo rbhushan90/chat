@@ -1,0 +1,32 @@
+
+<td-cards>
+  <td-card drag="false" ng-repeat="item in Tinder.cards.active">
+
+    <div class="bg-blue">
+      <img ng-src="{{ item.image }}" width="300px" height="300px">
+      <div class="padding">
+        <h3 class="yellow">{{item.name}}</h3>
+        <div class="yellow">{{item.title}} <i class="icon ion-ios-locked red"></i></div>
+        <div class="aqua" style="float:left;padding-top:5px">Due {{item.dueDate}}</div>
+        <div class="white" style="float:right">{{item.area}}</div>
+        <div style="clear:both"></div>
+        <div class="white" style="float:left">{{item.status}}</div>
+        <div class="white" style="float:right">Value {{item.value}}</div>
+        <div style="clear:both"></div>
+      </div>
+   </div>
+   <div class="list">
+     <label class="item item-input item-stacked-label">
+       <span class="input-label">Reward</span>
+       <div>This is the Reward</div>
+     </label>
+     <label class="item item-input item-stacked-label">
+       <span class="input-label">Forfeit</span>
+       <div>This is the Forfeit</div>
+     </label>
+     <button class="button button-block button-positive" ng-click="Tinder.showActions()">
+       Actions
+     </button>
+   </div>
+  </td-card>
+</td-cards>

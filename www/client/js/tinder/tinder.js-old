@@ -1,0 +1,99 @@
+angular.module('starter').directive('pxTinderModal', function () {
+  console.log("tinder directive");
+  return {
+    restrict: 'E',
+    scope: {},
+    bindToController: {
+      promiseId: "@",
+      status: "@"
+    },
+    templateUrl: function() {
+        return 'client/js/tinder/tinderModal.html';
+    },
+    controllerAs: 'Tinder',
+    controller: Tinder
+  }
+});
+
+
+function Tinder($scope, $rootScope, TDCardDelegate, $timeout, $ionicSideMenuDelegate, $ionicHistory) {
+
+      var cardTypes = [
+        {
+  			  name: $rootScope.tinderItem.name,
+  			  image: $rootScope.tinderItem.image,
+          title : $rootScope.tinderItem.title,
+          dueDate : $rootScope.tinderItem.dueDate,
+          area : $rootScope.tinderItem.area,
+          status : $rootScope.tinderItem.status,
+          value : $rootScope.tinderItem.value,
+  			}
+      ];
+
+      $scope.$on( "$ionicView.enter", function( scopes, states ) {
+         $ionicHistory.clearHistory();
+      });
+
+      Tinder = this;
+
+      Tinder.cards = {
+        master: Array.prototype.slice.call(cardTypes, 0),
+        active: Array.prototype.slice.call(cardTypes, 0),
+        discards: [],
+        liked: [],
+        disliked: []
+      }
+
+      Tinder.cardDestroyed = function(index) {
+        Tinder.cards.active.splice(index, 1);
+      };
+
+
+      Tinder.addCard = function() {
+        var newCard = cardTypes[0];
+        Tinder.cards.active.push(angular.extend({}, newCard));
+      }
+
+      Tinder.refreshCards = function() {
+        console.log("refresh cards");
+        // Set $scope.cards to null so that directive reloads
+        Tinder.cards.active = null;
+
+        Tinder.cards.discards = [];
+        Tinder.cards.liked = [];
+        Tinder.cards.disliked = [];
+
+        $timeout(function() {
+          Tinder.cards.active = Array.prototype.slice.call(Tinder.cards.master, 0);
+        });
+      }
+
+      $scope.$on('removeCard', function(event, element, card) {
+        var discarded = Tinder.cards.master.splice(Tinder.cards.master.indexOf(card), 1);
+        Tinder.cards.discards.push(discarded);
+      });
+
+      Tinder.cardSwipedLeft = function(index) {
+        console.log('LEFT SWIPE');
+        Tinder.hideModal();
+        var card = Tinder.cards.active[index];
+        Tinder.cards.disliked.push(card);
+      };
+
+      Tinder.cardSwipedRight = function(index) {
+        console.log('RIGHT SWIPE');
+        Tinder.hideModal();
+        var card = Tinder.cards.active[index];
+        Tinder.cards.liked.push(card);
+      };
+
+
+      Tinder.hideModal = function()  {
+        $rootScope.modal.hide();
+      }
+      Tinder.counter = function(id)  {
+        console.log("counter offer id=", id);
+        Tinder.hideModal();
+      }
+
+}

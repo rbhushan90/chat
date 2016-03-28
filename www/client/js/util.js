@@ -19,3 +19,11 @@ function peekModal() {
   }
   return false;
 }
+
+
+ // to stop the 'click' event frm being propagated further to the 'viewDetails' onclick
+ // http://benohead.com/angularjs-stopping-event-propagation-on-ng-click/
+  function stopFurtherClicks($event) {
+    $event.stopPropagation();
+    $event.preventDefault();
+  }

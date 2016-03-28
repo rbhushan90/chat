@@ -38,10 +38,28 @@ function Tag($scope, $rootScope, $ionicModal, ChatFactory) {
     },
     {
       uid : 'facebook:139737919748901',
-      name: 'Cat Cat Cat',
-      tagline: 'Am new at this, be patient with me!',
+      name: 'Adam Ant',
+      tagline: 'Hello World',
       image: 'img/mike.png'
-    }
+    },
+    {
+      uid: 'facebook:102211453505444',
+      name: 'Ben Brown',
+      tagline: 'Hi, Promises welcomed!',
+      image: 'img/adam.jpg'
+    },
+    {
+      uid: 'facebook:10207221897619364',
+      name: 'Cath Wilson',
+      tagline: 'Greetings',
+      image: 'img/ben.png'
+    },
+    {
+      uid: 'facebook:141031766284923',
+      name: 'John James',
+      tagline: 'Happy to help anyone with their Promises!',
+      image: 'img/max.png'
+    },
   ];
 
   Tag = this;

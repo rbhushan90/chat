@@ -13,23 +13,28 @@ angular.module('starter').directive('pxShowcaseModal', function () {
 function Showcase($scope, $rootScope) {
   var list = [
     {
-      name: 'To create a new Promise...',
-      image: 'img/list1.jpg',
+      name: 'This will look more exciting !',
+      image: 'img/shot0.png',
       color: 'blue'
     },
     {
       name: 'Follow these Steps...',
-      image: 'img/list2.jpg',
+      image: 'img/shot1.png',
       color: 'yellow'
     },
     {
-      name: 'Swipe to the Right...',
-      image: 'img/list3.jpg',
+      name: 'Send your Promise to Friends...',
+      image: 'img/shot2.png',
       color: 'pink'
     },
     {
       name: 'Blah, Blah, Blah',
-      image: 'img/list4.jpg',
+      image: 'img/shot3.png',
+      color: 'green'
+    },
+    {
+      name: 'Thank you for watching!',
+      image: 'img/shot4.png',
       color: 'green'
     }
   ];

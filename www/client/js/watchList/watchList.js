@@ -21,6 +21,7 @@ function WatchList($scope, $rootScope, $ionicHistory,  $ionicListDelegate, $ioni
       area : "Health",
       status : "Pending",
       value : "Routine",
+      type: 'request',
       name: 'Adam Jones',
       image: 'img/adam.jpg'
     },
@@ -29,8 +30,9 @@ function WatchList($scope, $rootScope, $ionicHistory,  $ionicListDelegate, $ioni
       title : "I will alter Michael's Jacket",
       dueDate : "11 March 2016",
       area : "Family",
-      status : "Pending Acknowledgement",
+      status : "Enshrined",
       value : "Good Stuff",
+      type: 'request',
       name: 'Ben Smith',
       image: 'img/ben.png'
     },
@@ -39,8 +41,9 @@ function WatchList($scope, $rootScope, $ionicHistory,  $ionicListDelegate, $ioni
       title : "I will run the London Marathon",
       dueDate : "4 April 2016",
       area : "Health",
-      status : "Pending",
+      status : "Pending Acknowledgement",
       value : "Good Stuff",
+      type: 'request',
       name: 'Max McMillian',
       image: 'img/max.png'
     },
@@ -51,6 +54,7 @@ function WatchList($scope, $rootScope, $ionicHistory,  $ionicListDelegate, $ioni
       area : "Career",
       status : "Pending",
       value : "Good Stuff",
+      type: 'request',
       name: 'Mike Sanders',
       image: 'img/mike.png'
     }
@@ -64,8 +68,9 @@ function WatchList($scope, $rootScope, $ionicHistory,  $ionicListDelegate, $ioni
   });
 
   // A confirm dialog
- WatchList.ackComplete = function(item) {
+ WatchList.ackComplete = function(item,$event) {
   $ionicListDelegate.closeOptionButtons();
+  stopFurtherClicks($event);
 
    var confirmPopup = $ionicPopup.confirm({
      title: 'Acknowledge Complete',
@@ -83,10 +88,25 @@ function WatchList($scope, $rootScope, $ionicHistory,  $ionicListDelegate, $ioni
 
 
    WatchList.openTinder = function (item) {
+     console.log("type=", item.type);
+     $rootScope.tinderItem = item;
+
      modal = "<px-tinder-modal promise-id='" + Promise.promiseId + "'></px-tinder-modal>";
      $rootScope.modal = $ionicModal.fromTemplate(modal);
      $rootScope.modal.show();
 
-     $rootScope.tinderItem = item;
    };
+
+   WatchList.chat = function(item, $event) {
+    stopFurtherClicks($event);
+
+     var alertPopup = $ionicPopup.alert({
+       title: 'Coming Soon',
+       template: 'Work in Progress'
+     });
+
+     alertPopup.then(function(res) {
+       console.log('popup shown');
+     });
+ }
 }

@@ -75,11 +75,10 @@ function Promise($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicMo
     // Show the action sheet
 
     var hideSheet = $ionicActionSheet.show({
-      titleText: '<font color="red">Note : options will depend on status of Promise.</font>List to be confirmed. Dont take this example literally',
+      titleText: '<font color="red">Note : options will depend on status of Promise.</font>Dont take this example literally.List to be confirmed',
       buttons: [
         { text: 'Chat' },
-        { text: 'Edit/Save' },
-        { text: 'Counter Offer' },
+        { text: 'Edit' },
         { text: 'Done' },
         { text: 'Declare Complete' }
       ],
@@ -104,8 +103,7 @@ function Promise($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicMo
         switch (index) {
           case 0 : Promise.openChat();break;
           case 1 : save();break;
-          case 2 : Promise.openCounter();break;
-          case 3 : Promise.openDone();break;
+          case 2 : Promise.openDone();break;
           default : misc(index);break;
         }
         return true;

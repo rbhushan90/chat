@@ -15,7 +15,7 @@ angular.module('starter').directive('pxSideMenu', function () {
 });
 
 
-function SideMenu ($scope, $rootScope, $state, $ionicModal, $ionicSideMenuDelegate, $timeout) {
+function SideMenu ($scope, $rootScope, $state, $ionicModal, $ionicSideMenuDelegate, $timeout, FirebaseAuth) {
 
   SideMenu = this;
   SideMenu.isSideMenuEnabled=true;
@@ -30,6 +30,8 @@ function SideMenu ($scope, $rootScope, $state, $ionicModal, $ionicSideMenuDelega
       {"id":"5", "label":"Contact Us","type":"modal", "dest":"<px-contactus-modal></px-contactus-modal>"}
     ]
   };
+
+  checkStatus();
 
   $rootScope.$on('rootScope:broadcast:sideMenu', function (event, menuName) {
      console.log("New Submenu required =" + menuName); // 'Broadcast!'
@@ -65,6 +67,12 @@ function SideMenu ($scope, $rootScope, $state, $ionicModal, $ionicSideMenuDelega
 
   function closeSideMenu() {
        $ionicSideMenuDelegate.$getByHandle("sidemenuHandle").toggleLeft(false);
+  }
+
+  function checkStatus() {
+    if ( FirebaseAuth.isAuthenticated() ) {
+      SideMenu.data.menuItems[0] =   {"id":"0", "label": "Logout", "type":"state", "dest":"login"};
+    }
   }
 
 }

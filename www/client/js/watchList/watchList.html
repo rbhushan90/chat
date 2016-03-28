@@ -14,8 +14,8 @@
         <div class="aqua" style="float:right">Value {{item.value}}</div>
         <div style="clear:both"></div>
 
-        <ion-option-button class="button-calm">Chat</ion-option-button>
-        <ion-option-button class="button-positive" ng-if="item.status=='Pending Acknowledgement'"  ng-click="WatchList.ackComplete(item)">Ack</ion-option-button>
+        <ion-option-button class="button-calm" ng-click="WatchList.chat(item,$event)">Chat</ion-option-button>
+        <ion-option-button class="button-positive" ng-if="item.status=='Pending Acknowledgement'"  ng-click="WatchList.ackComplete(item,$event)">Ack</ion-option-button>
 
       </ion-item>
     </ion-list>

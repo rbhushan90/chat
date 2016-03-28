@@ -9,18 +9,6 @@ angular.module('starter').directive('pxNotifications', function () {
     controller: Notifications
   }
 });
-// open in Modal mode
-angular.module('starter').directive('pxNotificationsModal', function () {
-  console.log("notificationsModal directive");
-  return {
-    restrict: 'E',
-    templateUrl: function() {
-        return 'client/js/notifications/notificationsModal.html';
-    },
-    controllerAs: 'Notifications',
-    controller: Notifications
-  }
-});
 
 
 function Notifications($scope, $rootScope, $ionicModal,$ionicHistory) {
@@ -28,7 +16,7 @@ function Notifications($scope, $rootScope, $ionicModal,$ionicHistory) {
 
   var list = [
     { name: 'Tony Jarvis sent you a Promise'},
-    { name: 'Sally McDonald sent you a Promise'},
+    { name: 'Sally McDonald sent you a Request'},
     { name: 'Jack Blake sent you a Promise'},
     { name: 'Simon Brown sent you a Promise'},
   ];

@@ -35,4 +35,15 @@ function PromiseDone($scope, $rootScope, $ionicModal) {
     console.log("choose photo");
   }
 
+  $scope.$on('modal.hidden', function() {
+    console.log("Promise Done, modal hidden......");
+
+    if (peekModal()) {
+      console.log("there's a modal is the stack, show it");
+      $rootScope.modal = popModal();
+      $rootScope.modal.show();
+    }
+
+  });
+
 }

@@ -30,3 +30,7 @@ scroll
   $ bower install angular-ui-scroll
 
 (2) How to load a list from a  starting point ---> Chat.adapter.reload(startIndex);
+
+ng-click  ( $event.stopPropagation()  as used in promiseList.js )
+=========
+http://benohead.com/angularjs-stopping-event-propagation-on-ng-click/

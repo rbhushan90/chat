@@ -65,7 +65,7 @@ and https://github.com/driftyco/ionic/issues/728 (original)
 
 /* Sidemenu */
 .bg-transparent {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 

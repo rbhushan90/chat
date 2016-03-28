@@ -18,16 +18,22 @@ function PromiseList($scope, $rootScope, $state, $ionicHistory, $ionicModal, $io
       title : "I promise to raise funds for Shelter UK",
       dueDate : "2 March 2016",
       area : "Health",
-      status : "Enshrined",
-      value : "Routine"
+      status : "Pending",
+      value : "Routine",
+      type: 'promise',
+      name: 'Ben Smith',
+      image: 'img/ben.png'
     },
     {
       id : 2,
       title : "I will go to the Gym twice a week",
       dueDate : "11 March 2016",
       area : "Health",
-      status : "Pending",
-      value : "Good Stuff"
+      status : "Enshrined",
+      value : "Good Stuff",
+      type: 'promise',
+      name: 'Ben Smith',
+      image: 'img/ben.png'
     },
     {
       id : 3,
@@ -35,7 +41,10 @@ function PromiseList($scope, $rootScope, $state, $ionicHistory, $ionicModal, $io
       dueDate : "4 April 2016",
       area : "Family",
       status : "Pending Acknowledgement",
-      value : "Good Stuff"
+      value : "Good Stuff",
+      type: 'promise',
+      name: 'Ben Smith',
+      image: 'img/ben.png'
     },
     {
       id : 4,
@@ -43,7 +52,10 @@ function PromiseList($scope, $rootScope, $state, $ionicHistory, $ionicModal, $io
       dueDate : "4 April 2016",
       area : "Family",
       status : "Acknowledged",
-      value : "Ermm"
+      value : "Ermm",
+      type: 'promise',
+      name: 'Ben Smith',
+      image: 'img/ben.png'
     },
     {
       id : 5,
@@ -51,7 +63,10 @@ function PromiseList($scope, $rootScope, $state, $ionicHistory, $ionicModal, $io
       dueDate : "1 March 2016",
       area : "Routine",
       status : "Overdue",
-      value : "Ermm"
+      value : "Ermm",
+      type: 'promise',
+      name: 'Ben Smith',
+      image: 'img/ben.png'
     }
   ];
 
@@ -66,9 +81,11 @@ function PromiseList($scope, $rootScope, $state, $ionicHistory, $ionicModal, $io
 
   });
 
+
   // A confirm dialog
- PromiseList.revoke = function(item) {
+ PromiseList.revoke = function(item, $event) {
   $ionicListDelegate.closeOptionButtons();
+  stopFurtherClicks($event);
 
    var confirmPopup = $ionicPopup.confirm({
      title: 'Revoke Promise',
@@ -84,48 +101,64 @@ function PromiseList($scope, $rootScope, $state, $ionicHistory, $ionicModal, $io
    });
  };
 
- PromiseList.openShare = function (item) {
+ PromiseList.openShare = function (item, $event) {
+   console.log("open share...");
    $ionicListDelegate.closeOptionButtons();
+   stopFurtherClicks($event);
 
    modal = "<px-tag-modal action='share' promise-id='" + item.id + "'></px-tag-modal>";
    $rootScope.modal = $ionicModal.fromTemplate(modal);
    $rootScope.modal.show();
  };
 
- PromiseList.openRequest = function (item) {
+ PromiseList.openRequest = function (item, $event) {
    $ionicListDelegate.closeOptionButtons();
+   stopFurtherClicks($event);
 
    modal = "<px-tag-modal action='request' promise-id='" + item.id + "'></px-tag-modal>";
    $rootScope.modal = $ionicModal.fromTemplate(modal);
    $rootScope.modal.show();
  };
 
- PromiseList.openDone = function (item) {
+ PromiseList.openDone = function (item, $event) {
     $ionicListDelegate.closeOptionButtons();
+    stopFurtherClicks($event);
 
    modal = "<px-promise-done-modal promise-id='" + item.id + "'></px-promise-done-modal>";
    $rootScope.modal = $ionicModal.fromTemplate(modal);
    $rootScope.modal.show();
  };
 
- PromiseList.notDone = function (item) {
+ PromiseList.notDone = function (item, $event) {
     $ionicListDelegate.closeOptionButtons();
+    stopFurtherClicks($event);
 
    modal = "<px-promise-not-done-modal promise-id='" + item.id + "'></px-promise-not-done-modal>";
    $rootScope.modal = $ionicModal.fromTemplate(modal);
    $rootScope.modal.show();
  };
 
- PromiseList.openChat = function (item) {
+ PromiseList.openChat = function (item, $event) {
+   console.log("open chat promiseId=" + Promise.promiseId);
    $ionicListDelegate.closeOptionButtons();
-    console.log("open chat promiseId=" + Promise.promiseId);
+   stopFurtherClicks($event);
 
-   //  $state.go('tab.chat', {'promiseId':Promise.promiseId});
-   $state.go('chat', {'promiseId':item.id});
+
+   var alertPopup = $ionicPopup.alert({
+     title: 'Coming Soon',
+     template: 'Work in Progress'
+   });
+
+   alertPopup.then(function(res) {
+     console.log('popup shown');
+   });
+   
+   //$state.go('chat', {'promiseId':item.id});
  };
 
- PromiseList.complete = function(item) {
+ PromiseList.complete = function(item, $event) {
   $ionicListDelegate.closeOptionButtons();
+   stopFurtherClicks($event);
 
    var confirmPopup = $ionicPopup.confirm({
      title: 'Complete Promise',
@@ -140,4 +173,14 @@ function PromiseList($scope, $rootScope, $state, $ionicHistory, $ionicModal, $io
      }
    });
  };
+
+ PromiseList.viewDetail = function (item) {
+   console.log("viewDetails, item id = ", item);
+   modal = "<px-tinder-modal promise-id='" + item.id + "'></px-tinder-modal>";
+   $rootScope.modal = $ionicModal.fromTemplate(modal);
+   $rootScope.modal.show();
+
+   $rootScope.tinderItem = item;
+ };
+
 }
